@@ -1,0 +1,8 @@
+[FORMAT]
+max-line-length=240
+
+[TYPECHECK]
+# Ignore pylint issues with Flask-SQLAlchemy due to runtime namespace and
+# session object modification
+ignored-modules=flask_sqlalchemy
+generated-members=db.session.add|db.session.delete|db.session.commit|db.session.query
