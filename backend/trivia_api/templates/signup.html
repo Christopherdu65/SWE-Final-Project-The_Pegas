@@ -1,0 +1,27 @@
+<form action="/signup">
+    Create a username: <input type="text" name="username">
+    Create a password: <input type="password" name="password" id="mypassword">
+    <input type="submit" value="submit">
+    <input type="checkbox" onclick="checkpassword()">Show Password
+</form>
+<script>
+    function checkpassword() {
+        var p = document.getElementById("mypassword");
+        if (p.type === "password") {
+            p.type = "text";
+
+        } else {
+            p.type = "password"
+        }
+
+    }
+</script>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul id="message" class=flashes>
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}

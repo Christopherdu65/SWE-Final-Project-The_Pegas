@@ -1,33 +1,23 @@
-import random
+import os
+import flask
 from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from .models import get_wiki_api
-from .models import User, Movie, Comment
-from . import db
+
+
+# from models import User
+app = flask.Flask(__name__)
+bp = flask.Blueprint(
+    "bp",
+    __name__,
+    template_folder="./static/react",
+)
+
 
 # Global variables
 blueprint = Blueprint(
     "blueprint", __name__, static_folder="./static", static_url_path=""
 )
-
-dummy_users = {
-    "users": [
-        {"id": 1, "username": "Pegasus65", "password": "Pegasus65", "totalPoints": 101},
-        {"id": 2, "username": "Rushi_Daddy", "password": "Pleborus", "totalPoints": 88},
-        {
-            "id": 3,
-            "username": "HarinLameman",
-            "password": "Pagorus77",
-            "totalPoints": 55,
-        },
-        {"id": 4, "username": "loupWeep", "password": "Platorus", "totalPoints": 100},
-        {"id": 5, "username": "flesky65", "password": "abcd1234", "totalPoints": 36},
-        {"id": 6, "username": "pluto-clep", "password": "Lmr910", "totalPoints": 138},
-        {"id": 7, "username": "dogDoux", "password": "ddd123", "totalPoints": 120},
-        {"id": 8, "username": "lukeKal", "password": "pigeon1", "totalPoints": 99},
-    ]
-}
 
 
 @blueprint.before_app_first_request
@@ -42,23 +32,6 @@ def index():
     """
 
     return blueprint.send_static_file("index.html")
-
-
-@blueprint.route("/users", defaults={"user_id": None})
-@blueprint.route("/users/<user_id>")
-def users(user_id):
-    """
-    Dummy user data endpoint.
-    """
-
-    if user_id:
-        result = list(filter(lambda x: x["id"] == int(user_id), dummy_users["users"]))
-
-        if len(result) > 0:
-            return jsonify(result[0])
-        return jsonify({})
-
-    return jsonify(dummy_users)
 
 
 # @blueprint.route("/login")
@@ -93,14 +66,14 @@ def users(user_id):
 #     return redirect(url_for("blueprint.movies"))
 
 
-# @blueprint.route("/signup")
-# def signup():
-#     """
-#     Signup flow entrypoint. Accessible from the navbar when user is not
-#     authenticated.
-#     """
+@blueprint.route("/signup")
+def signup():
+    #     """
+    #     Signup flow entrypoint. Accessible from the navbar when user is not
+    #     authenticated.
+    #     """
 
-#     return render_template("signup.html")
+    return render_template("signup.html")
 
 
 # @blueprint.route("/signup", methods=["POST"])
@@ -140,3 +113,7 @@ def users(user_id):
 
 #     logout_user()
 #     return redirect(url_for("blueprint.login"))
+
+
+app.register_blueprint(bp)
+app.run(debug=True)

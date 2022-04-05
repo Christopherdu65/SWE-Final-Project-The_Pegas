@@ -1,0 +1,18 @@
+<form method="POST" action="/login" class="form">
+
+    {{form.hidden_tag()}}
+    {{form.users.label}} {{form.users(size=20)}}
+    {{form.passwords.label}} {{form.passwords(size=20)}}
+
+    <input id="loginpage" type="submit" value="Go">
+</form>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul id="message" class=flashes>
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}

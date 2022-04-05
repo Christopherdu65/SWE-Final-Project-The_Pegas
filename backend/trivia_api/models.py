@@ -1,9 +1,11 @@
 import requests
 from flask_login import UserMixin
-from . import db
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 
-class User(UserMixin, db.Model):  # pylint: disable=too-few-public-methods
+class User(db.Model, UserMixin):  # pylint: disable=too-few-public-methods
     """
     User model for storing login data. Primary key set automatically on user
     creation.
@@ -12,6 +14,10 @@ class User(UserMixin, db.Model):  # pylint: disable=too-few-public-methods
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
+
+    def __repr__(self):
+        #      self.password = password
+        return "<userlogin %r>" % self.username
 
 
 def get_url(url, params=None):
