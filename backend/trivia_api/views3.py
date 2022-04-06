@@ -60,7 +60,7 @@ def signup():
 
 @app.route("/signup", methods=["POST", "GET"])
 def signup_post():
-    if flask.request.method == "POsT":
+    if flask.request.method == "POST":
         data = flask.request.form
         passwords = flask.request.form
         newuser = User(username=data["username"])
