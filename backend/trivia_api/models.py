@@ -1,11 +1,13 @@
 import requests
 from flask_login import UserMixin
-from . import db
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.mutable import MutableDict
 
+db = SQLAlchemy()
 
-class User(UserMixin, db.Model):  # pylint: disable=too-few-public-methods
+
+class userlogin(UserMixin, db.Model):  # pylint: disable=too-few-public-methods
     """
     User model for storing login data. Primary key set automatically on user
     creation.
@@ -24,7 +26,7 @@ class Result(db.Model):  # pylint: disable=too-few-public-methods
     category = db.Column(db.Integer)
     difficulty = db.Column(db.String(100))
     score = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("userlogin.id"), nullable=False)
 
 
 def get_url(url, params=None):
