@@ -76,13 +76,19 @@ def signup_post():
 
             db.session.add(entry)
             db.session.commit()
-            return jsonify({"message": "success"}), 200
+            return jsonify({"code": 200, "message": "failed", "message": "success"})
         else:
-            return jsonify({"message": "User Name is already Taken"})
+            return jsonify(
+                {
+                    "code": 400,
+                    "message": "failed",
+                    "message": "User Name is already Taken",
+                }
+            )
 
     #  return jsonify({"new": newusers})
 
-    return jsonify({"message": "failed"}), 400  # what am I returning here
+    return jsonify({"code": 400, "message": "failed"})  # what am I returning here
 
 
 @login_manager.user_loader
@@ -101,13 +107,19 @@ def login_post():
     user = userlogin.query.filter_by(username=checkusers).first()
 
     if not user or not check_password_hash(user.password, password):
-        return jsonify({"message": "You have entered the wrong login! Try again"})
+        return jsonify(
+            {
+                "code": 400,
+                "message": "failed",
+                "message": "You have entered the wrong login! Try again",
+            }
+        )
     #         flash("Please check your login details and try again.")
     #         return redirect(url_for("blueprint.login"))
 
     else:
         login_user(user)
-        return jsonify({"message": "success"}, 200)
+        return jsonify({"code": 200, "message": "failed", "message": "success"})
 
 
 # return jsonify({"message": "tryagain"})
