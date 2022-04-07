@@ -8,9 +8,7 @@ function Leaderboard() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch('users', {
-            //'methods' : 'GET'
-        })
+        fetch('users', {})
         .then(response => response.json())
         .then(response => setUsers(response.users))
         .catch(error => console.log(error))
