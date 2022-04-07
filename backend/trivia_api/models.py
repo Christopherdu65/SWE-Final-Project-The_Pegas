@@ -22,8 +22,8 @@ class User(UserMixin, db.Model):  # pylint: disable=too-few-public-methods
 class Result(db.Model):  # pylint: disable=too-few-public-methods
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.Integer)
-    difficulty = db.Column(db.String(100))
     score = db.Column(db.Integer)
+    maximum = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
 
@@ -66,19 +66,7 @@ def get_trivia_api(params, endpoint="/api.php"):
 
 def is_request_valid(json):
     if "category" in json:
-        if json["category"] < 9 or json["category"] > 32:
-            return False
-
-    if "difficulty" in json:
-        if not (
-            json["difficulty"] == "easy"
-            or json["difficulty"] == "medium"
-            or json["difficulty"] == "hard"
-        ):
-            return False
-
-    if "correct" in json:
-        if json["correct"] < 0 or json["correct"] > 10:
+        if (json["category"] < 9 or json["category"] > 32) and json["category"] != 0:
             return False
 
     return True

@@ -61,48 +61,20 @@ def users(user_id):
     return dummy_users
 
 
-@blueprint.route("/api/getquiz", methods=["POST"])
-def get_quiz():
-    data = request.get_json()
-
-    if not is_request_valid(data):
-        return {"error": "invalid request"}
-
-    category = data["category"]
-    difficulty = data["difficulty"]
-
-    questions = get_trivia_api(
-        {
-            "category": category,
-            "difficulty": difficulty,
-            "amount": 10,
-        }
-    )
-    return {**questions, "success": True}
-
-
-@blueprint.route("/api/submitquiz", methods=["POST"])
+@blueprint.route("/api/quiz", methods=["POST"])
 def submit_quiz():
     data = request.get_json()
 
     if not is_request_valid(data):
         return {"status": False, "error": "invalid request"}
 
-    correct = data["correct"]
     category = data["category"]
-    difficulty = data["difficulty"]
-    score = 0
-
-    if difficulty == "easy":
-        score = correct * 1
-    elif difficulty == "medium":
-        score = correct * 3
-    elif difficulty == "hard":
-        score = correct * 5
+    score = data["score"]
+    maximum = data["maximum"]
 
     user = User.query.get(current_user.id)
 
-    new_quiz = Result(category=category, difficulty=difficulty, score=score)
+    new_quiz = Result(category=category, score=score, maximum=maximum)
 
     while len(len(user.recents) >= 10):
         user.recents.delete(user.recents[0])
