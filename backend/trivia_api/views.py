@@ -1,9 +1,9 @@
-import random
 from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from .models import get_trivia_api, is_request_valid
+from .models import is_category_valid
 from .models import User, Result
+from sqlalchemy import desc
 from . import db, login_manager
 
 # Global variables
@@ -65,8 +65,8 @@ def users(user_id):
 def submit_quiz():
     data = request.get_json()
 
-    if not is_request_valid(data):
-        return {"status": False, "error": "invalid request"}
+    if not is_category_valid(data["category"]):
+        return {"success": False, "error": "invalid request"}
 
     category = data["category"]
     score = data["score"]
@@ -101,7 +101,7 @@ def submit_quiz():
     db.session.add(user)
     db.session.commit()
 
-    return {"status": True}
+    return {"success": True}
 
 
 @blueprint.route("/api/achievements")
@@ -125,6 +125,23 @@ def get_achievements():
         }
 
     return {**achievements, "success": True}
+
+
+@blueprint.route("/api/leaderboard")
+def get_leaderboard():
+    category = request.args.get("category", default="0")
+    if category != "0":
+        if not is_category_valid(category):
+            return {"success": False, "error": "invalid request"}
+
+    top_users = db.session.query(User).order_by(desc(User.points[category])).limit(10)
+
+    leaderboard = {"results": []}
+    for user in top_users:
+        entry = {"username": user.username, "score": User.points[category]}
+        leaderboard["results"].append(entry)
+
+    return {**leaderboard, "success": True}
 
 
 @login_manager.unauthorized_handler
