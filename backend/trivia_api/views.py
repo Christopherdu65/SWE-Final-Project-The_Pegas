@@ -1,10 +1,10 @@
-import random
 from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from .models import get_wiki_api
-from .models import User, Movie, Comment
-from . import db
+from .models import is_category_valid
+from .models import User, Result
+from sqlalchemy import desc
+from . import db, login_manager
 
 # Global variables
 blueprint = Blueprint(
@@ -55,88 +55,141 @@ def users(user_id):
         result = list(filter(lambda x: x["id"] == int(user_id), dummy_users["users"]))
 
         if len(result) > 0:
-            return jsonify(result[0])
-        return jsonify({})
+            return result[0]
+        return {}
 
-    return jsonify(dummy_users)
-
-
-# @blueprint.route("/login")
-# def login():
-#     """
-#     Login flow entrypoint. All attempts to access authentication-gated pages
-#     will redirect here.
-#     """
-
-#     return render_template("login.html")
+    return dummy_users
 
 
-# @blueprint.route("/login", methods=["POST"])
-# def login_post():
-#     """
-#     Login endpoint for authentication. Invalid login data will result in a
-#     message being flashed to the user. On authentication success, the user
-#     will be redirected to the randomizer page.
-#     """
+@blueprint.route("/signup", methods=["POST"])
+def signup_post():
+    # return jsonify({"message": "success"}, 200)
+    data = request.get_json()
+    username = data["username"]
+    password = data["password"]
+    newuser = User(username=username, password=password)
 
-#     username = request.form.get("username")
-#     password = request.form.get("password")
-#     remember = bool(request.form.get("remember"))
+    if User.query.filter_by(username=newuser.username).first() is None:
+        # entry = User(username=newuser.username, password=newpass.password)
+        new_users = User(
+            username=username,
+            password=generate_password_hash(password, method="sha256"),
+        )
 
-#     user = User.query.filter_by(username=username).first()
-
-#     if not user or not check_password_hash(user.password, password):
-#         flash("Please check your login details and try again.")
-#         return redirect(url_for("blueprint.login"))
-
-#     login_user(user, remember=remember)
-#     return redirect(url_for("blueprint.movies"))
-
-
-# @blueprint.route("/signup")
-# def signup():
-#     """
-#     Signup flow entrypoint. Accessible from the navbar when user is not
-#     authenticated.
-#     """
-
-#     return render_template("signup.html")
+        db.session.add(new_users)
+        db.session.commit()
+        return {"success": True}
+    else:
+        return {"success": False, "error": "username already taken"}
 
 
-# @blueprint.route("/signup", methods=["POST"])
-# def signup_post():
-#     """
-#     Signup endpoint. Ensures duplication of usernames is not possible,
-#     and hashes passwords for secure storage of user data.
-#     """
-
-#     username = request.form.get("username")
-#     password = request.form.get("password")
-
-#     user = User.query.filter_by(username=username).first()
-
-#     if user:
-#         flash("Username already exists")
-#         return redirect(url_for("blueprint.signup"))
-
-#     new_user = User(
-#         username=username,
-#         password=generate_password_hash(password, method="sha256"),
-#     )
-
-#     db.session.add(new_user)
-#     db.session.commit()
-
-#     return redirect(url_for("blueprint.login"))
+def loaduser(user_id):
+    return User.query.get(user_id)
 
 
-# @blueprint.route("/logout")
-# @login_required
-# def logout():
-#     """
-#     Logout endpoint. Deactivates user session and redirects user to
-#     login page.
-#     """
+@blueprint.route("/login", methods=["GET", "POST"])
+def login_post():
+    data = request.get_json()
+    username = data["username"]
+    password = data["password"]
+    #     remember = bool(request.form.get("remember"))
+    user = User.query.filter_by(username=username).first()
+    if not user or not check_password_hash(user.password, password):
+        return {"success": False, "error": "invalid login"}
+    login_user(user)
+    return {"success": True}
 
-#     logout_user()
-#     return redirect(url_for("blueprint.login"))
+
+@blueprint.route("/logout", methods=["GET", "POST"])
+@login_required
+def logout():
+    logout_user()
+    return {"success": True}
+
+
+@blueprint.route("/api/quiz", methods=["POST"])
+def submit_quiz():
+    data = request.get_json()
+
+    if not is_category_valid(data["category"]):
+        return {"success": False, "error": "invalid request"}
+
+    category = data["category"]
+    score = data["score"]
+    maximum = data["maximum"]
+
+    user = User.query.get(current_user.id)
+
+    new_quiz = Result(category=category, score=score, maximum=maximum)
+
+    while len(len(user.recents) >= 10):
+        user.recents.delete(user.recents[0])
+    user.recents.append(new_quiz)
+
+    if "0" not in user.plays:
+        user.plays["0"] = 1
+    else:
+        user.plays["0"] += 1
+    if str(category) not in user.plays:
+        user.plays[str(category)] = 1
+    else:
+        user.plays[str(category)] += 1
+
+    if "0" not in user.points:
+        user.points["0"] = score
+    else:
+        user.points["0"] += score
+    if str(category) not in user.points and score > 0:
+        user.points[str(category)] = score
+    else:
+        user.points[str(category)] += score
+
+    db.session.add(user)
+    db.session.commit()
+
+    return {"success": True}
+
+
+@blueprint.route("/api/achievements")
+def get_achievements():
+    achievements = {}
+
+    user = User.query.get(current_user.id)
+
+    plays = user.plays
+    points = user.points
+
+    for key, value in plays.items():
+        targets = [1, 5, 10, 50, 100]
+        achievements[key] = {"plays": [x for x in targets if value >= x]}
+
+    for key, value in points.items():
+        targets = [10, 25, 50, 100, 500]
+        achievements[key] = {
+            **achievements[key],
+            "points": [x for x in targets if value >= x],
+        }
+
+    return {**achievements, "success": True}
+
+
+@blueprint.route("/api/leaderboard")
+def get_leaderboard():
+    category = request.args.get("category", default="0")
+    if category != "0":
+        if not is_category_valid(category):
+            return {"success": False, "error": "invalid request"}
+
+    top_users = db.session.query(User).order_by(desc(User.points[category])).limit(10)
+
+    leaderboard = {"results": []}
+    for user in top_users:
+        entry = {"username": user.username, "score": User.points[category]}
+        leaderboard["results"].append(entry)
+
+    return {**leaderboard, "success": True}
+
+
+@login_manager.unauthorized_handler
+def login_error():
+    return {"status": "success", "error": "login required"}
