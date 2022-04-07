@@ -1,10 +1,10 @@
-import random
 from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from .models import get_wiki_api
-from .models import User, Movie, Comment
-from . import db
+from .models import is_category_valid
+from .models import User, Result
+from sqlalchemy import desc
+from . import db, login_manager
 
 # Global variables
 blueprint = Blueprint(
@@ -55,11 +55,101 @@ def users(user_id):
         result = list(filter(lambda x: x["id"] == int(user_id), dummy_users["users"]))
 
         if len(result) > 0:
-            return jsonify(result[0])
-        return jsonify({})
+            return result[0]
+        return {}
 
-    return jsonify(dummy_users)
+    return dummy_users
 
+
+@blueprint.route("/api/quiz", methods=["POST"])
+def submit_quiz():
+    data = request.get_json()
+
+    if not is_category_valid(data["category"]):
+        return {"success": False, "error": "invalid request"}
+
+    category = data["category"]
+    score = data["score"]
+    maximum = data["maximum"]
+
+    user = User.query.get(current_user.id)
+
+    new_quiz = Result(category=category, score=score, maximum=maximum)
+
+    while len(len(user.recents) >= 10):
+        user.recents.delete(user.recents[0])
+    user.recents.append(new_quiz)
+
+    if "0" not in user.plays:
+        user.plays["0"] = 1
+    else:
+        user.plays["0"] += 1
+    if str(category) not in user.plays:
+        user.plays[str(category)] = 1
+    else:
+        user.plays[str(category)] += 1
+
+    if "0" not in user.points:
+        user.points["0"] = score
+    else:
+        user.points["0"] += score
+    if str(category) not in user.points and score > 0:
+        user.points[str(category)] = score
+    else:
+        user.points[str(category)] += score
+
+    db.session.add(user)
+    db.session.commit()
+
+    return {"success": True}
+
+
+@blueprint.route("/api/achievements")
+def get_achievements():
+    achievements = {}
+
+    user = User.query.get(current_user.id)
+
+    plays = user.plays
+    points = user.points
+
+    for key, value in plays.items():
+        targets = [1, 5, 10, 50, 100]
+        achievements[key] = {"plays": [x for x in targets if value >= x]}
+
+    for key, value in points.items():
+        targets = [10, 25, 50, 100, 500]
+        achievements[key] = {
+            **achievements[key],
+            "points": [x for x in targets if value >= x],
+        }
+
+    return {**achievements, "success": True}
+
+
+@blueprint.route("/api/leaderboard")
+def get_leaderboard():
+    category = request.args.get("category", default="0")
+    if category != "0":
+        if not is_category_valid(category):
+            return {"success": False, "error": "invalid request"}
+
+    top_users = db.session.query(User).order_by(desc(User.points[category])).limit(10)
+
+    leaderboard = {"results": []}
+    for user in top_users:
+        entry = {"username": user.username, "score": User.points[category]}
+        leaderboard["results"].append(entry)
+
+    return {**leaderboard, "success": True}
+
+
+@login_manager.unauthorized_handler
+def login_error():
+    return {"status": "success", "error": "login required"}
+
+
+# get leaderboard/per category
 
 # @blueprint.route("/login")
 # def login():

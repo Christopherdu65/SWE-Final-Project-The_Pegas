@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 db = SQLAlchemy()
+login_manager = LoginManager()
 
 # Cyclic import warning disabled as it is implicit that no functionality
 # that is not yet initialized will be used
@@ -35,7 +36,6 @@ def create_app():
     db.create_all(app=app)
 
     # Setup authentication logic
-    login_manager = LoginManager()
     login_manager.login_view = "blueprint.login"
     login_manager.init_app(app)
 
