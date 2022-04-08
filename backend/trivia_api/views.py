@@ -63,33 +63,38 @@ def users(user_id):
 
 @blueprint.route("/signup", methods=["POST"])
 def signup_post():
-    # return jsonify({"message": "success"}, 200)
     data = request.get_json()
+
     username = data["username"]
     password = data["password"]
-    if User.query.filter_by(username=username).first() is None:
 
-        new_users = User(
-            username=username,
-            password=generate_password_hash(password, method="sha256"),
-        )
+    user = User.query.filter_by(username=username).first()
 
-        db.session.add(new_users)
-        db.session.commit()
-        return {"success": True}
-    else:
+    if not user:
         return {"success": False, "error": "username already taken"}
+
+    new_user = User(
+        username=username,
+        password=generate_password_hash(password, method="sha256"),
+    )
+
+    db.session.add(new_user)
+    db.session.commit()
+    return {"success": True}
 
 
 @blueprint.route("/login", methods=["POST"])
 def login_post():
     data = request.get_json()
+
     username = data["username"]
     password = data["password"]
-    #     remember = bool(request.form.get("remember"))
+
     user = User.query.filter_by(username=username).first()
+
     if not user or not check_password_hash(user.password, password):
         return {"success": False, "error": "invalid login"}
+
     login_user(user)
     return {"success": True}
 
@@ -102,6 +107,7 @@ def logout():
 
 
 @blueprint.route("/api/quiz", methods=["POST"])
+@login_required
 def submit_quiz():
     data = request.get_json()
 
@@ -145,6 +151,7 @@ def submit_quiz():
 
 
 @blueprint.route("/api/achievements")
+@login_required
 def get_achievements():
     achievements = {}
 
