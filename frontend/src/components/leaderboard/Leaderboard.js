@@ -1,7 +1,6 @@
-import HappyFace from "./HappyFace.jpeg"
 import { useState, useEffect } from 'react';
 import UserList from "./UserList"
-import "./Components.css";
+import "./Leaderboard.css";
 
 function Leaderboard() {
 

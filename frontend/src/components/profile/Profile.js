@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import "./Components.css";
+import "./Profile.css";
 
 function Profile() {
 
     const [user, setUser] = useState([]);
     const [avatar, setAvatar] = useState();
 
+    // to-do: fetch current user logged in
     useEffect(() => {
         fetch('users/2', {})
         .then(response => response.json())
@@ -22,14 +23,11 @@ function Profile() {
             <div className="userinfo">
                 <h1>{user.username}</h1>
                 <img className="avatar" src={avatar} alt="profile image"/>
-                <p>{user.totalPoints}</p>
-            </div>
-
-            <div className="bio">
-                // info for user {user.id} to-do, maybe editable bio?
+                <p><b>{user.totalPoints}</b></p>
             </div>
 
             <div className="quizzes">
+                <h3>Recently Played Quizzes</h3>
                 // to-do, list recently played quizzes
             </div>
 
