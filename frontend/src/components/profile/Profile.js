@@ -8,7 +8,7 @@ function Profile() {
 
     // to-do: fetch current user logged in
     useEffect(() => {
-        fetch('users/2', {})
+        fetch('api/me', {})
         .then(response => response.json())
         .then(response => { 
             setUser(response)
