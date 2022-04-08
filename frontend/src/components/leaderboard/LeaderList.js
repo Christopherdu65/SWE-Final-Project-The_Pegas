@@ -1,5 +1,6 @@
 const LeaderList = (props) => {
-    const leaders = props.results;
+    const leaders = props.leaders;
+    console.log(leaders)
 
     return (
         <div className="leaderlist">
