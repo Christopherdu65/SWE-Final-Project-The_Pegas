@@ -210,4 +210,4 @@ def get_leaderboard():
 
 @login_manager.unauthorized_handler
 def login_error():
-    return {"status": "success", "error": "login required"}
+    return {"success": False, "error": "login required"}
