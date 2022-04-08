@@ -11,8 +11,8 @@ function Profile() {
         fetch('api/me', {})
         .then(response => response.json())
         .then(response => { 
-            setUser(response)
-            setAvatar('https://avatars.dicebear.com/api/human/'  + response.username + '.svg')
+            setUser(response.user_info)
+            setAvatar('https://avatars.dicebear.com/api/human/'  + response.user_info.username + '.svg')
         })
         .catch(error => console.log(error))
        
@@ -23,12 +23,13 @@ function Profile() {
             <div className="userinfo">
                 <h1>{user.username}</h1>
                 <img className="avatar" src={avatar} alt="profile image"/>
-                <p><b>{user.totalPoints}</b></p>
+                <p><b>{user.points}</b></p>
             </div>
 
             <div className="quizzes">
                 <h3>Recently Played Quizzes</h3>
-                // to-do, list recently played quizzes
+                <p><b>{user.plays} plays!</b></p>
+                
             </div>
 
         </div>

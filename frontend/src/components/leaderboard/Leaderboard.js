@@ -5,18 +5,18 @@ import Select from 'react-select'
 
 function Leaderboard() {
 
-    const [leaders, setLeaders] = useState();
+    const [leaders, setLeaders] = useState([]);
     const [category, setCategory] = useState();
 
     useEffect(() => {
         fetch('/api/leaderboard', {})
         .then(response => response.json())
-        .then(response => setLeaders(response))
+        .then(response => setLeaders(response.results))
+        .then(response => console.log(response.results))
         .catch(error => console.log(error))
     }, []);
 
     console.log(leaders);
-    // to-do: sort users by score beforer listing them out <UserList users={users}/>
 
     const options = [
         {value: 1, label: 'Cat1'},
@@ -42,6 +42,7 @@ function Leaderboard() {
 
             
             <div className="list">
+                <LeaderList leaders={leaders}/>
             </div>
         </div>    
 
