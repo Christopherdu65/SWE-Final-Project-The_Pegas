@@ -4,24 +4,24 @@ import "./Leaderboard.css";
 
 function Leaderboard() {
 
-    const [users, setUsers] = useState([]);
+    const [leaders, setLeaders] = useState([]);
 
     useEffect(() => {
-        fetch('users', {})
+        fetch('/api/leaderboard', {})
         .then(response => response.json())
-        .then(response => setUsers(response.users))
+        .then(response => setLeaders(response))
         .catch(error => console.log(error))
     }, []);
 
-
-    // to-do: sort users by score beforer listing them out
+    console.log(leaders)
+    // to-do: sort users by score beforer listing them out <UserList users={users}/>
 
     return (
         <div className="board">
             <h1>Leaderboard</h1>
-
+                
             <div className="list">
-                <UserList users={users}/>
+                
             </div>
         </div>    
 
