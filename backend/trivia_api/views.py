@@ -70,7 +70,7 @@ def signup_post():
 
     user = User.query.filter_by(username=username).first()
 
-    if not user:
+    if user:
         return {"success": False, "error": "username already taken"}
 
     new_user = User(
