@@ -68,7 +68,6 @@ def signup_post():
     username = data["username"]
     password = data["password"]
     newuser = User(username=username, password=password)
-
     if User.query.filter_by(username=newuser.username).first() is None:
 
         new_users = User(
