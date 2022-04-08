@@ -6,10 +6,11 @@ import Select from 'react-select'
 function Leaderboard() {
 
     const [leaders, setLeaders] = useState([]);
-    const [category, setCategory] = useState();
+    const [category, setCategory] = useState(0);
+    const [url, setUrl] = useState('/api/leaderboard')
 
     useEffect(() => {
-        fetch('/api/leaderboard', {})
+        fetch(url, {})
         .then(response => response.json())
         .then(response => setLeaders(response.results))
         .then(response => console.log(response.results))
@@ -19,14 +20,15 @@ function Leaderboard() {
     console.log(leaders);
 
     const options = [
+        {value: 0, label: 'Cat0'},
         {value: 1, label: 'Cat1'},
-        {value: 2, label: 'Cat2'},
-        {value: 3, label: 'Cat3'}
+        {value: 20, label: 'Cat20'}
     ];
 
     function handleOnChange(value) {
-        console.log(value)
         setCategory(value.value)
+        setUrl('/api/leaderboard?category=' + category)
+        console.log(url)
     }
 
     return (
@@ -39,7 +41,6 @@ function Leaderboard() {
             placeholder="Pick a category!" 
             onChange={handleOnChange}
             /></center>
-
             
             <div className="list">
                 <LeaderList leaders={leaders}/>

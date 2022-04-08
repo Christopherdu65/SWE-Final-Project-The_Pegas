@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import QuizList from "./QuizList"
 import "./Profile.css";
 
 function Profile() {
@@ -29,7 +30,7 @@ function Profile() {
             <div className="quizzes">
                 <h3>Recently Played Quizzes</h3>
                 <p><b>{user.plays} plays!</b></p>
-                
+                <QuizList quizzes={user.recents}/>
             </div>
 
         </div>
