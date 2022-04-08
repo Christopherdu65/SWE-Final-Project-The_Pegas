@@ -1,4 +1,14 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify
+from flask import (
+    Blueprint,
+    render_template,
+    redirect,
+    url_for,
+    request,
+    flash,
+    jsonify,
+    json,
+)
+from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 from .models import is_category_valid
@@ -83,11 +93,7 @@ def signup_post():
         return {"success": False, "error": "username already taken"}
 
 
-def loaduser(user_id):
-    return User.query.get(user_id)
-
-
-@blueprint.route("/login", methods=["GET", "POST"])
+@blueprint.route("/login", methods=["POST"])
 def login_post():
     data = request.get_json()
     username = data["username"]
@@ -100,7 +106,7 @@ def login_post():
     return {"success": True}
 
 
-@blueprint.route("/logout", methods=["GET", "POST"])
+@blueprint.route("/logout")
 @login_required
 def logout():
     logout_user()
