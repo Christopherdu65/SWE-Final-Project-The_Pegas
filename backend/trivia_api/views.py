@@ -93,13 +93,6 @@ def signup_post():
         return {"success": False, "error": "username already taken"}
 
 
-<<<<<<< HEAD
-=======
-def loaduser(user_id):
-    return User.query.get(user_id)
-
-
->>>>>>> f2d39980f1a1b53de4e4ef35b9a45a8fcf41c6be
 @blueprint.route("/login", methods=["POST"])
 def login_post():
     data = request.get_json()
