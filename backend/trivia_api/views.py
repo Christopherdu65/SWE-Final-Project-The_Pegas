@@ -200,11 +200,16 @@ def get_leaderboard():
         if not is_category_valid(category):
             return {"success": False, "error": "invalid request"}
 
-    top_users = db.session.query(User).order_by(desc(User.points[category])).limit(10)
+    top_users = (
+        db.session.query(User)
+        .filter(User.points.op("?")(category))
+        .order_by(desc(User.points[category]))
+        .limit(10)
+    )
 
     leaderboard = {"results": []}
     for user in top_users:
-        entry = {"username": user.username, "score": User.points[category]}
+        entry = {"username": user.username, "score": user.points[category]}
         leaderboard["results"].append(entry)
 
     return {**leaderboard, "success": True}
