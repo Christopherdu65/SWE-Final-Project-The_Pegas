@@ -1,29 +1,33 @@
+import "./Navbar.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Profile from "../profile/Profile";
+
 const Navbar = () => {
     return (
+        <Router>
         <nav className="navbar">
             <h1>Trivia App</h1>
-            <div className="links">
-                <li>
-                    home
-                </li>
+            <li className="left">
+                Home
+            </li>
 
-                <li>
-                    quizzes
-                </li>
+            <li className="left">
+                Quizzes
+            </li>
 
-                <li>
-                    leaderboard
-                </li>
+            <li className="left">
+                Leaderboard
+            </li>
 
-                <li>
-                    current user's profile
-                </li>
+            <li className="right">
+                Profile
+            </li>
 
-                <li>
-                    logout
-                </li>
-            </div>
+            <li className="right">
+                Logout
+            </li>
         </nav>
+        </Router>
     )
 }
 
