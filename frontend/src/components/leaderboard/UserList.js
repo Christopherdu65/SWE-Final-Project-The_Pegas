@@ -5,7 +5,7 @@ const UserList = (props) => {
         <div className="userlist">
            { users.map((user) => (
                 <div className="userlist-item">
-                    <img className="avatar" src={'https://avatars.dicebear.com/api/human/'  + user.username + '.svg'} alt="profile image"/>
+                    <img className="avatar-list" src={'https://avatars.dicebear.com/api/human/'  + user.username + '.svg'} alt="profile image"/>
                     <h2 className="username-list">{user.username}</h2>
                     <p className="score-list">{user.totalPoints}</p> 
                 </div>
