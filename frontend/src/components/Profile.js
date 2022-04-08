@@ -1,24 +1,27 @@
 import { useState, useEffect } from 'react';
 import "./Components.css";
-import { createAvatar } from '@dicebear/avatars';
-import * as style from '@dicebear/avatars-human-sprites';
 
 function Profile() {
 
     const [user, setUser] = useState([]);
+    const [avatar, setAvatar] = useState();
 
     useEffect(() => {
-        fetch('users/1', {})
+        fetch('users/2', {})
         .then(response => response.json())
-        .then(response => setUser(response))
+        .then(response => { 
+            setUser(response)
+            setAvatar('https://avatars.dicebear.com/api/human/'  + response.username + '.svg')
+        })
         .catch(error => console.log(error))
+       
     }, []);
 
     return (
         <div className="Profile">
             <div className="userinfo">
                 <h1>{user.username}</h1>
-                <img className="avatar" src={ createAvatar(style, { seed: user.username }) } alt="profile image"/>
+                <img className="avatar" src={avatar} alt="profile image"/>
                 <p>{user.totalPoints}</p>
             </div>
 
