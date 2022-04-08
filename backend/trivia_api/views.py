@@ -87,7 +87,7 @@ def loaduser(user_id):
     return User.query.get(user_id)
 
 
-@blueprint.route("/login", methods=["GET", "POST"])
+@blueprint.route("/login", methods=["POST"])
 def login_post():
     data = request.get_json()
     username = data["username"]
