@@ -5,7 +5,7 @@
     border-radius: 50%;
 }
 
-.userlist-item {
+.leaderlist-item {
     border: 5px;
     display: flex;
     justify-content: space-between;
@@ -17,6 +17,10 @@
     padding: 10px;
 }
 
-.userlist {
+.leaderlist {
     padding: 10px;
+}
+
+.selectcat {
+    width: 300px;
 }
