@@ -61,7 +61,7 @@ def users(user_id):
     return dummy_users
 
 
-@blueprint.route("/signup", methods=["POST"])
+@blueprint.route("/api/signup", methods=["POST"])
 def signup_post():
     data = request.get_json()
 
@@ -83,7 +83,7 @@ def signup_post():
     return {"success": True}
 
 
-@blueprint.route("/login", methods=["POST"])
+@blueprint.route("/api/login", methods=["POST"])
 def login_post():
     data = request.get_json()
 
@@ -99,11 +99,28 @@ def login_post():
     return {"success": True}
 
 
-@blueprint.route("/logout")
+@blueprint.route("/api/logout")
 @login_required
 def logout():
     logout_user()
     return {"success": True}
+
+
+@blueprint.route("/api/me")
+@login_required
+def user_info():
+    user = User.query.get(current_user.id)
+
+    user_info = {"username": user.username, "plays": user.plays, "points": user.points}
+
+    recent_quizzes = user.recent
+    mapped_quizzes = [
+        {"category": quiz.category, "score": quiz.score, "maximum": quiz.maximum}
+        for quiz in recent_quizzes
+    ]
+    user_info["recents"] = mapped_quizzes
+
+    return {**user_info, "success": True}
 
 
 @blueprint.route("/api/quiz", methods=["POST"])
