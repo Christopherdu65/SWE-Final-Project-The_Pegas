@@ -70,53 +70,39 @@ def users(user_id):
     return dummy_users
 
 
-def validateJSON(data):
-    try:
-        json.loads(data)
-    except ValueError:
-        return False
-    return True
-
-
 @blueprint.route("/signup", methods=["POST"])
 def signup_post():
     # return jsonify({"message": "success"}, 200)
     data = request.get_json()
-    if validateJSON(data) == True and "username" and "password" in data:
-        username = data["username"]
-        password = data["password"]
-        newuser = User(username=username, password=password)
+    username = data["username"]
+    password = data["password"]
+    newuser = User(username=username, password=password)
 
-        if User.query.filter_by(username=username).first() is None:
+    if User.query.filter_by(username=newuser.username).first() is None:
 
-            new_users = User(
-                username=username,
-                password=generate_password_hash(password, method="sha256"),
-            )
+        new_users = User(
+            username=username,
+            password=generate_password_hash(password, method="sha256"),
+        )
 
-            db.session.add(new_users)
-            db.session.commit()
-            return {"success": True}
-        else:
-            return {"success": False, "error": "username already taken"}
+        db.session.add(new_users)
+        db.session.commit()
+        return {"success": True}
     else:
-        return {"success": False, "error": "wrong json format"}
+        return {"success": False, "error": "username already taken"}
 
 
 @blueprint.route("/login", methods=["POST"])
 def login_post():
     data = request.get_json()
-    if validateJSON(data) == True and "username" and "password" in data:
-        username = data["username"]
-        password = data["password"]
-        #     remember = bool(request.form.get("remember"))
-        user = User.query.filter_by(username=username).first()
-        if not user or not check_password_hash(user.password, password):
-            return {"success": False, "error": "invalid login"}
-        login_user(user)
-        return {"success": True}
-    else:
-        return {"success": False, "error": "wrong json format"}
+    username = data["username"]
+    password = data["password"]
+    #     remember = bool(request.form.get("remember"))
+    user = User.query.filter_by(username=username).first()
+    if not user or not check_password_hash(user.password, password):
+        return {"success": False, "error": "invalid login"}
+    login_user(user)
+    return {"success": True}
 
 
 @blueprint.route("/logout")
