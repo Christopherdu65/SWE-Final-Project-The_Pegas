@@ -76,6 +76,8 @@ def signup_post():
     new_user = User(
         username=username,
         password=generate_password_hash(password, method="sha256"),
+        plays={},
+        points={},
     )
 
     db.session.add(new_user)
@@ -113,7 +115,7 @@ def user_info():
 
     user_info = {"username": user.username, "plays": user.plays, "points": user.points}
 
-    recent_quizzes = user.recent
+    recent_quizzes = user.recents
     mapped_quizzes = [
         {"category": quiz.category, "score": quiz.score, "maximum": quiz.maximum}
         for quiz in recent_quizzes
@@ -132,14 +134,14 @@ def submit_quiz():
         return {"success": False, "error": "invalid request"}
 
     category = data["category"]
-    score = data["score"]
-    maximum = data["maximum"]
+    score = int(data["score"])
+    maximum = int(data["maximum"])
 
     user = User.query.get(current_user.id)
 
     new_quiz = Result(category=category, score=score, maximum=maximum)
 
-    while len(len(user.recents) >= 10):
+    while len(user.recents) >= 10:
         user.recents.delete(user.recents[0])
     user.recents.append(new_quiz)
 
