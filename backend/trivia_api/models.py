@@ -1,4 +1,5 @@
 import requests
+import json
 from flask_login import UserMixin
 from . import db
 from sqlalchemy.dialects.postgresql import JSONB
@@ -24,7 +25,7 @@ class Result(db.Model):  # pylint: disable=too-few-public-methods
     category = db.Column(db.Integer)
     score = db.Column(db.Integer)
     maximum = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
 
 def is_category_valid(category):
@@ -33,3 +34,16 @@ def is_category_valid(category):
     if (category < 9 or category > 32) and category != 1:
         return False
     return True
+
+
+def validate_json(data, required):
+    try:
+        dict = json.loads(data)
+        if not all(variable in data for variable in required):
+            raise KeyError
+
+        return dict
+    except ValueError:
+        return False
+    except KeyError:
+        return False
