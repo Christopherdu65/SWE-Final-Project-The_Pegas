@@ -8,18 +8,28 @@ import Settings from "./components/quizComponent/Settings";
 import Quiz from "./components/quizComponent/Quiz";
 import Login from "./components/loginComponent/Login";
 import Register from "./components/registerComponent/Register";
+import Profile from "./components/profile/Profile";
+import Leaderboard from "./components/leaderboard/Leaderboard";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
   const [user, setUser] = useState(false);
 
   return (
     <Router>
+      <Navbar />
       <Switch>
         <Route exact path="/">
           {user ? <Settings setUser={setUser} /> : <Login setUser={setUser} />}
         </Route>
+        <Route exact path="/leaderboard">
+          <Leaderboard />
+        </Route>
         <Route path="/quiz">
           {user ? <Quiz /> : <Login setUser={setUser} />}
+        </Route>
+        <Route path="/profile">
+          {user ? <Profile /> : <Login setUser={setUser} />}
         </Route>
         <Route path="/login">
           {user ? <Settings setUser={setUser} /> : <Login setUser={setUser} />}
@@ -35,5 +45,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;

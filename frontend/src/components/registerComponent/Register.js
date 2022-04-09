@@ -1,3 +1,4 @@
+/* eslint-disable react/style-prop-object */
 /* eslint-disable no-alert */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -76,7 +77,7 @@ export default function Register({ setUser }) {
       </div>
       <button type="submit">Register</button>
       <br />
-      <Link to="/login">Already a user? sign in</Link>
+      <Link to="/login">Already a user? sign in here</Link>
       <br /> <br /> <br />
       <div>{isRegistered && <Link to="/login">Continue</Link>}</div>
     </form>
