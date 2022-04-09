@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from .models import is_category_valid
+from .models import is_category_valid, validate_json
 from .models import User, Result
 from sqlalchemy import desc
 from . import db, login_manager
@@ -60,59 +60,50 @@ def users(user_id):
 
     return dummy_users
 
-def validateJSON(data):
-    try:
-        json.loads(data)
-    except ValueError:
-        return False
-    return True
-  
+
 @blueprint.route("/api/signup", methods=["POST"])
 def signup_post():
-    data = request.get_json()
-    if validateJSON(data) == True and "username" and "password" in data:
+    data = validate_json(request.data, ["username", "password"])
+    if not data:
+        return {"success": False, "error": "invalid payload"}
 
-      username = data["username"]
-      password = data["password"]
+    username = data["username"]
+    password = data["password"]
 
-      user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username).first()
 
-      if user:
-          return {"success": False, "error": "username already taken"}
+    if user:
+        return {"success": False, "error": "username already taken"}
 
-      new_user = User(
-          username=username,
-          password=generate_password_hash(password, method="sha256"),
-          plays={},
-          points={},
-      )
+    new_user = User(
+        username=username,
+        password=generate_password_hash(password, method="sha256"),
+        plays={},
+        points={},
+    )
 
-      db.session.add(new_user)
-      db.session.commit()
-      return {"success": True}
-    
-    else:
-              return {"success": False, "error": "wrong json format"}
-
+    db.session.add(new_user)
+    db.session.commit()
+    return {"success": True}
 
 
 @blueprint.route("/api/login", methods=["POST"])
 def login_post():
-    data = request.get_json()
-    if validateJSON(data) == True and "username" and "password" in data:
+    data = validate_json(request.data, ["username", "password"])
+    if not data:
+        return {"success": False, "error": "invalid payload"}
 
-      username = data["username"]
-      password = data["password"]
+    username = data["username"]
+    password = data["password"]
 
-      user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username).first()
 
-      if not user or not check_password_hash(user.password, password):
-          return {"success": False, "error": "invalid login"}
+    if not user or not check_password_hash(user.password, password):
+        return {"success": False, "error": "invalid login"}
 
-      login_user(user)
-      return {"success": True}
-    else:
-         return {"success": False, "error": "wrong json format"}
+    login_user(user)
+    return {"success": True}
+
 
 @blueprint.route("/api/logout")
 @login_required
@@ -141,10 +132,9 @@ def user_info():
 @blueprint.route("/api/quiz", methods=["POST"])
 @login_required
 def submit_quiz():
-    data = request.get_json()
-
-    if not is_category_valid(data["category"]):
-        return {"success": False, "error": "invalid request"}
+    data = validate_json(request.data, ["category", "score", "maximum"])
+    if not (data and is_category_valid(data["category"])):
+        return {"success": False, "error": "invalid payload"}
 
     category = data["category"]
     score = int(data["score"])
