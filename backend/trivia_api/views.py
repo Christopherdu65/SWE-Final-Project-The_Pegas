@@ -59,7 +59,7 @@ def users(user_id):
 @blueprint.route("/api/signup", methods=["POST"])
 def signup_post():
     data = validate_json(request.data, ["username", "password"])
-    if not (data and len(data["username"]) > 0 and len(data["password"]) > 0):
+    if not (data and len(data["username"]) > 0 and len(data["password"] > 0)):
         return {"success": False, "error": "invalid payload"}
 
     username = data["username"]
@@ -85,7 +85,7 @@ def signup_post():
 @blueprint.route("/api/login", methods=["POST"])
 def login_post():
     data = validate_json(request.data, ["username", "password"])
-    if not (data and len(data["username"]) > 0 and len(data["password"]) > 0):
+    if not (data and len(data["username"]) > 0 and len(data["password"] > 0)):
         return {"success": False, "error": "invalid payload"}
 
     username = data["username"]
