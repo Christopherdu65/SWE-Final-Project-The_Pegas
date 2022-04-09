@@ -1,6 +1,8 @@
-const QuizList = (props) => {
-    const quizzes = props.quizzes;
-    console.log(quizzes)
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/react-in-jsx-scope */
+function QuizList(props) {
+    const {quizzes} = props;
 
     return (
         <div className="quizlist">

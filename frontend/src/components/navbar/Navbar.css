@@ -23,7 +23,7 @@
   }
 
   .navbar h1 { 
-    color: white;
+    color: red;
   }
   
   .navbar li:hover {
@@ -33,5 +33,5 @@
 
 a { 
     text-decoration: none;
-    color: white;
+    color: red;
 }
