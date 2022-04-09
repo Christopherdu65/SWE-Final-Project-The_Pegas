@@ -1,40 +1,27 @@
-import logo from "./logo.svg";
-import { React, useEffect, useState } from "react";
+import { React } from "react";
 import "./App.css";
+import Navbar from "./components/navbar/Navbar";
+import Profile from "./components/profile/Profile";
+import Leaderboard from "./components/leaderboard/Leaderboard";
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 function App() {
-    const [test, setTest] = useState({});
-
-    useEffect(() => {
-        fetch("/users/1", {
-            headers: {
-                accepts: "application/json",
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                setTest(data);
-            })
-            .catch(() => {
-                setTest("failure");
-            });
-    }, []);
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>Username: {test["username"]}</p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+            <div className="App">
+                <Router>
+                    <Navbar/>
+                    <Switch>
+                        <Route path="/leaderboard">
+                            <Leaderboard/>
+                        </Route>
+
+                        <Route path="/profile">
+                            <Profile/>
+                        </Route>
+                    </Switch>
+                </Router>
+            </div>
     );
 }
 

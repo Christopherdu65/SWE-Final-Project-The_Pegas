@@ -27,7 +27,6 @@ class Result(db.Model):  # pylint: disable=too-few-public-methods
     maximum = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
-
 def is_category_valid(category):
     category = int(category)
 
