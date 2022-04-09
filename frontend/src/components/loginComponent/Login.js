@@ -65,7 +65,8 @@ export default function Login({ setUser }) {
         <br /> <br />
       </div>
       <button type="submit">Login</button>
-      <Link to="/register">not a user? sign up</Link>
+      <br /> <br />
+      <Link to="/register">not a user? sign up here</Link>
     </form>
   );
 }
