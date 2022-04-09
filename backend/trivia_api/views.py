@@ -144,8 +144,8 @@ def submit_quiz():
 
     new_quiz = Result(category=category, score=score, maximum=maximum)
 
-    while len(user.recents) >= 10:
-        user.recents.delete(user.recents[0])
+    while len(user.recents.all()) >= 10:
+        db.session.delete(user.recents.first())
     user.recents.append(new_quiz)
 
     if "0" not in user.plays:
