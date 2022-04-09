@@ -1,13 +1,4 @@
-from flask import (
-    Blueprint,
-    render_template,
-    redirect,
-    url_for,
-    request,
-    flash,
-    jsonify,
-    json,
-)
+from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 from .models import is_category_valid
@@ -69,64 +60,86 @@ def users(user_id):
 
     return dummy_users
 
-
 def validateJSON(data):
     try:
         json.loads(data)
     except ValueError:
         return False
     return True
-
-
-@blueprint.route("/signup", methods=["POST"])
+  
+@blueprint.route("/api/signup", methods=["POST"])
 def signup_post():
-    # return jsonify({"message": "success"}, 200)
     data = request.get_json()
     if validateJSON(data) == True and "username" and "password" in data:
-        username = data["username"]
-        password = data["password"]
-        newuser = User(username=username, password=password)
 
-        if User.query.filter_by(username=username).first() is None:
+      username = data["username"]
+      password = data["password"]
 
-            new_users = User(
-                username=username,
-                password=generate_password_hash(password, method="sha256"),
-            )
+      user = User.query.filter_by(username=username).first()
 
-            db.session.add(new_users)
-            db.session.commit()
-            return {"success": True}
-        else:
-            return {"success": False, "error": "username already taken"}
+      if user:
+          return {"success": False, "error": "username already taken"}
+
+      new_user = User(
+          username=username,
+          password=generate_password_hash(password, method="sha256"),
+          plays={},
+          points={},
+      )
+
+      db.session.add(new_user)
+      db.session.commit()
+      return {"success": True}
+    
     else:
-        return {"success": False, "error": "wrong json format"}
+              return {"success": False, "error": "wrong json format"}
 
 
-@blueprint.route("/login", methods=["POST"])
+
+@blueprint.route("/api/login", methods=["POST"])
 def login_post():
     data = request.get_json()
     if validateJSON(data) == True and "username" and "password" in data:
-        username = data["username"]
-        password = data["password"]
-        #     remember = bool(request.form.get("remember"))
-        user = User.query.filter_by(username=username).first()
-        if not user or not check_password_hash(user.password, password):
-            return {"success": False, "error": "invalid login"}
-        login_user(user)
-        return {"success": True}
+
+      username = data["username"]
+      password = data["password"]
+
+      user = User.query.filter_by(username=username).first()
+
+      if not user or not check_password_hash(user.password, password):
+          return {"success": False, "error": "invalid login"}
+
+      login_user(user)
+      return {"success": True}
     else:
-        return {"success": False, "error": "wrong json format"}
+         return {"success": False, "error": "wrong json format"}
 
-
-@blueprint.route("/logout")
+@blueprint.route("/api/logout")
 @login_required
 def logout():
     logout_user()
     return {"success": True}
 
 
+@blueprint.route("/api/me")
+@login_required
+def user_info():
+    user = User.query.get(current_user.id)
+
+    user_info = {"username": user.username, "plays": user.plays, "points": user.points}
+
+    recent_quizzes = user.recents
+    mapped_quizzes = [
+        {"category": quiz.category, "score": quiz.score, "maximum": quiz.maximum}
+        for quiz in recent_quizzes
+    ]
+    user_info["recents"] = mapped_quizzes
+
+    return {**user_info, "success": True}
+
+
 @blueprint.route("/api/quiz", methods=["POST"])
+@login_required
 def submit_quiz():
     data = request.get_json()
 
@@ -134,14 +147,14 @@ def submit_quiz():
         return {"success": False, "error": "invalid request"}
 
     category = data["category"]
-    score = data["score"]
-    maximum = data["maximum"]
+    score = int(data["score"])
+    maximum = int(data["maximum"])
 
     user = User.query.get(current_user.id)
 
     new_quiz = Result(category=category, score=score, maximum=maximum)
 
-    while len(len(user.recents) >= 10):
+    while len(user.recents) >= 10:
         user.recents.delete(user.recents[0])
     user.recents.append(new_quiz)
 
@@ -170,6 +183,7 @@ def submit_quiz():
 
 
 @blueprint.route("/api/achievements")
+@login_required
 def get_achievements():
     achievements = {}
 
@@ -199,11 +213,16 @@ def get_leaderboard():
         if not is_category_valid(category):
             return {"success": False, "error": "invalid request"}
 
-    top_users = db.session.query(User).order_by(desc(User.points[category])).limit(10)
+    top_users = (
+        db.session.query(User)
+        .filter(User.points.op("?")(category))
+        .order_by(desc(User.points[category]))
+        .limit(10)
+    )
 
     leaderboard = {"results": []}
     for user in top_users:
-        entry = {"username": user.username, "score": User.points[category]}
+        entry = {"username": user.username, "score": user.points[category]}
         leaderboard["results"].append(entry)
 
     return {**leaderboard, "success": True}
@@ -211,4 +230,4 @@ def get_leaderboard():
 
 @login_manager.unauthorized_handler
 def login_error():
-    return {"status": "success", "error": "login required"}
+    return {"success": False, "error": "login required"}
