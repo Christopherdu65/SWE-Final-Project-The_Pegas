@@ -15,7 +15,7 @@ class User(UserMixin, db.Model):  # pylint: disable=too-few-public-methods
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
-    recents = db.relationship("Result", backref="user", lazy=True)
+    recents = db.relationship("Result", backref="user", lazy="dynamic")
     plays = db.Column(MutableDict.as_mutable(JSONB))
     points = db.Column(MutableDict.as_mutable(JSONB))
 
@@ -39,7 +39,7 @@ def is_category_valid(category):
 def validate_json(data, required):
     try:
         dict = json.loads(data)
-        if not all(variable in data for variable in required):
+        if not all(variable in dict for variable in required):
             raise KeyError
 
         return dict
