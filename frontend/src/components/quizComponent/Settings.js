@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-filename-extension */
@@ -8,7 +9,7 @@ const ErrorComponent = () => {
   <h3>There was an issue with our api request. Try again.</h3>;
 };
 
-export default function Settings() {
+export default function Settings({ setUser }) {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currCategory, setCurrCategory] = useState("");
@@ -44,6 +45,15 @@ export default function Settings() {
     setQuestionsType(e.target.value);
   };
 
+  const handleLogout = () => {
+    fetch(`/api/logout`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setUser(false);
+        }
+      });
+  };
   function ContinueButton() {
     return (
       <Link
@@ -65,43 +75,51 @@ export default function Settings() {
   if (!loading && !hasError) {
     return (
       <div>
+        <Link to="/login">
+          <div>
+            <button type="button" onClick={handleLogout}>
+              logout
+            </button>
+          </div>
+        </Link>
+        <br /> <br /> <br />
         <h1>The Pegas Quiz</h1>
         <form>
-            Select Category:
-            <select onChange={handleCurrCategoryChange}>
-              <option value="">All</option>
-              {categories &&
-                categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-            </select>
+          Select Category:
+          <select onChange={handleCurrCategoryChange}>
+            <option value="">All</option>
+            {categories &&
+              categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+          </select>
           <br />
           <br />
-            Enter Number of questions:
-            <input
-              type="number"
-              defaultValue={numQuestions}
-              onChange={handleQuestionsChange}
-            />
+          Enter Number of questions:
+          <input
+            type="number"
+            defaultValue={numQuestions}
+            onChange={handleQuestionsChange}
+          />
           <br />
           <br />
-            Select Difficulty:
-            <select value={difficulty} onChange={handleDifficultyChange}>
-              <option value="">Any</option>
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
-            </select>
+          Select Difficulty:
+          <select value={difficulty} onChange={handleDifficultyChange}>
+            <option value="">Any</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
           <br />
           <br />
-            Select Type:
-            <select value={questionsType} onChange={handleTypeChange}>
-              <option value="">Any</option>
-              <option value="multiple">Multiple Choice</option>
-              <option value="boolean">True/False</option>
-            </select>
+          Select Type:
+          <select value={questionsType} onChange={handleTypeChange}>
+            <option value="">Any</option>
+            <option value="multiple">Multiple Choice</option>
+            <option value="boolean">True/False</option>
+          </select>
           <br />
           <br />
           <ContinueButton />

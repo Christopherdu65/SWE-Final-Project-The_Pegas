@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-danger */
@@ -114,13 +116,40 @@ function Quiz({ location }) {
         });
     }
   }, [category, difficulty, numQuestions, location.state, questionsType]);
+
+  useEffect(() => {
+    if (currIndex === numQuestions) {
+      // if(location.state){
+      const currCategory = category || 1;
+      fetch(`/api/quiz`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          category: currCategory,
+          score: quizPts,
+          maximum: possiblePts,
+        }),
+      }).then(res => res.json())
+        .then((data) => {
+          if (!data.success)
+            alert("There was an error while saving your score");
+          else console.log("Successfully saved");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  });
   return (
     <div>
       {!hasError && quiz[currIndex] && (
         <div>
           <h3 dangerouslySetInnerHTML={{ __html: quiz[currIndex].question }} />
-          {quiz[currIndex].choices.map((choice) => (
+          {quiz[currIndex].choices.map((choice, index) => (
             <button
+              key={index}
               type="button"
               onClick={pickAnswer}
               dangerouslySetInnerHTML={{ __html: choice }}
