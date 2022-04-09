@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from .models import is_category_valid
+from .models import is_category_valid, validate_json
 from .models import User, Result
 from sqlalchemy import desc
 from . import db, login_manager
@@ -63,7 +63,9 @@ def users(user_id):
 
 @blueprint.route("/api/signup", methods=["POST"])
 def signup_post():
-    data = request.get_json()
+    data = validate_json(request.data, ["username", "password"])
+    if not (data and len(data["username"]) > 0 and len(data["password"] > 0)):
+        return {"success": False, "error": "invalid payload"}
 
     username = data["username"]
     password = data["password"]
@@ -87,7 +89,9 @@ def signup_post():
 
 @blueprint.route("/api/login", methods=["POST"])
 def login_post():
-    data = request.get_json()
+    data = validate_json(request.data, ["username", "password"])
+    if not (data and len(data["username"]) > 0 and len(data["password"] > 0)):
+        return {"success": False, "error": "invalid payload"}
 
     username = data["username"]
     password = data["password"]
@@ -128,10 +132,9 @@ def user_info():
 @blueprint.route("/api/quiz", methods=["POST"])
 @login_required
 def submit_quiz():
-    data = request.get_json()
-
-    if not is_category_valid(data["category"]):
-        return {"success": False, "error": "invalid request"}
+    data = validate_json(request.data, ["category", "score", "maximum"])
+    if not (data and is_category_valid(data["category"])):
+        return {"success": False, "error": "invalid payload"}
 
     category = data["category"]
     score = int(data["score"])
@@ -141,8 +144,8 @@ def submit_quiz():
 
     new_quiz = Result(category=category, score=score, maximum=maximum)
 
-    while len(user.recents) >= 10:
-        user.recents.delete(user.recents[0])
+    while len(user.recents.all()) >= 10:
+        db.session.delete(user.recents.first())
     user.recents.append(new_quiz)
 
     if "0" not in user.plays:
