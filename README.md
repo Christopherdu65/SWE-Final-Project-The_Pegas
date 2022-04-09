@@ -1,26 +1,24 @@
-# SWE-Final-Project-The_Pegas
+# The Pegas' SWE Project
 
-## Incentive
-We developed a fake json server in order to test our frontend while other team members were still working on the frontend. 
+TODO: Fill description
 
-## Testing && Setup
+## Development Instructions
 
-1. Clone the repo first
-2. install json server with npm. ```npm install -g json-server```
-3. go in the json-mock-api directory and start the JSON server: ```json-server --watch db.json```
+To allow for simultaneous and speedy development of both the backend and frontend, this repo has both together so that members working on one are able to use the current most stable push by the other while working.
 
-The server should start up by now. to get all the users, go on Postman or your browser to: 
-http://localhost:3000/users
+**For frontend development:**
 
-you can also get a specific user by adding an id path parameter like this:
-http://localhost:3000/users/1
+You will need to ensure you have run `npm install` and `npm install --dev` for optimal workflow.
 
-this will return:
-```
-        {
-            "id": 1,
-            "username": "Pegasus65",
-            "password": "Pegasus65",
-            "totalPoints": 101
-        }
-```
+1. Run the backend using `python run.py` from the `backend` folder.
+2. Start the React development server from the `frontend` directory using `npm start`.
+3. When usage of some API route is needed within the frontend, such as `/users`, simply list that endpoint in the code where fetches/requests are performed. The React server will automatically proxy these requests to the local running backend.
+4. Once the app has reached a state where a build can be performed, use command `npm run build` to start the process. Files will automatically be placed in the directory from which the backend will serve them.
+
+If you do not run the backend, the React development server will not be able to properly use the API as needed.
+
+**For backend development:**
+
+While you can use the React development server to test backend changes, you can conserve resources by simply using the Flask-served React app that is sourced from the build files.
+
+1. Simply run `python run.py`. The entire page will be available at `http://127.0.0.1:5000`, with the React app at the main endpoint (provided a valid build has been performed).
