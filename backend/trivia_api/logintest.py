@@ -33,7 +33,6 @@ class TestJSON(unittest.TestCase):
             self.assertTrue(current_user.is_active())
             user = User.query.filter_by(username="faith1").first()
             self.assertTrue(user, response)
-        #  self.assertTrue(str(user) == '<name - Michael>')
 
 
 if __name__ == "__main__":
