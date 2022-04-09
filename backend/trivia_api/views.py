@@ -15,7 +15,12 @@ dummy_users = {
     "users": [
         {"id": 1, "username": "Pegasus65", "password": "Pegasus65", "totalPoints": 101},
         {"id": 2, "username": "Rushi_Daddy", "password": "Pleborus", "totalPoints": 88},
-        {"id": 3, "username": "HarinLameman", "password": "Pagorus77", "totalPoints": 55,},
+        {
+            "id": 3,
+            "username": "HarinLameman",
+            "password": "Pagorus77",
+            "totalPoints": 55,
+        },
         {"id": 4, "username": "loupWeep", "password": "Platorus", "totalPoints": 100},
         {"id": 5, "username": "flesky65", "password": "abcd1234", "totalPoints": 36},
         {"id": 6, "username": "pluto-clep", "password": "Lmr910", "totalPoints": 138},
@@ -59,7 +64,7 @@ def users(user_id):
 @blueprint.route("/api/signup", methods=["POST"])
 def signup_post():
     data = validate_json(request.data, ["username", "password"])
-    if not (data and len(data["username"]) > 0 and len(data["password"] > 0)):
+    if not (data and len(data["username"]) > 0 and len(data["password"]) > 0):
         return {"success": False, "error": "invalid payload"}
 
     username = data["username"]
@@ -85,7 +90,7 @@ def signup_post():
 @blueprint.route("/api/login", methods=["POST"])
 def login_post():
     data = validate_json(request.data, ["username", "password"])
-    if not (data and len(data["username"]) > 0 and len(data["password"] > 0)):
+    if not (data and len(data["username"]) > 0 and len(data["password"]) > 0):
         return {"success": False, "error": "invalid payload"}
 
     username = data["username"]
