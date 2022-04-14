@@ -11,7 +11,7 @@ import { React, useState, useEffect } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import "./Quiz.css";
-import GameOver from "./gameOver/GameOver"
+import GameOver from "./gameOver/GameOver";
 
 function ErrorComponent() {
   return <h3>There was an issue calling the api</h3>;
