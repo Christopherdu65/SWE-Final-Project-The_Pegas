@@ -34,7 +34,7 @@ function Navbar({ user, setUsers }) {
     return (
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <h1 className="navbar-item">  <NavLink to="/"> Trivia App</NavLink ></h1 >
+          <h1 id="tivia" className="navbar-item">  <NavLink to="/"> Trivia App</NavLink ></h1 >
 
         </div>
         <div id="navbarBasicExample" className="navbar-menu">
@@ -78,7 +78,10 @@ function Navbar({ user, setUsers }) {
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation" >
       <div className="navbar-brand">
-        <h1 className="navbar-item"> Trivia App</h1 >
+
+        <h1 id="tivia" className="navbar-item">  <NavLink to="/"> Trivia App</NavLink ></h1 >
+
+
       </div>
       <div id="navbarBasicExample" className="navbar-menu">
         <li className="navbar-item">
