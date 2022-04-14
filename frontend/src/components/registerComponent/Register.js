@@ -83,10 +83,10 @@ export default function Register({ setUser }) {
             <h2 className="subtitle is-3">Register With Us</h2>
           </div>
           <br /> <br />
-          <label htmlFor="username"><p className="is-size-5" /> Username:
+          <label htmlFor="username"><p className="is-size-5" /> <p className="is-size-5"> Username: </p>
             <input
               id="username"
-              className="input is-large"
+              className="input is-danger"
               type="text"
               value={username}
               placeholder="Enter username"
@@ -96,10 +96,10 @@ export default function Register({ setUser }) {
           <br />
           <br />
           <div>
-            <label htmlFor="password"><p className="is-size-5" /> Password:
+            <label htmlFor="password"><p className="is-size-5" /> <p className="is-size-5"> Password: </p>
               <input
                 id="password"
-                className="input is-large"
+                className="input is-danger"
                 type="password"
                 value={password}
                 placeholder="Enter password"
@@ -109,9 +109,9 @@ export default function Register({ setUser }) {
 
             <br /> <br />
           </div>
-          <button id="button" type="submit">Register</button>
+          <button id="button" className="button is-danger" type="submit">Register</button>
           <br />
-          <Link to="/login">Already a user? sign in here</Link>
+          <button type="button" className="button is-danger"> <Link to="/login" id="link">Already a user? sign in here</Link></button>
           <br /> <br /> <br />
           <div>{isRegistered && <Link to="/login">Continue</Link>}</div>
         </form>

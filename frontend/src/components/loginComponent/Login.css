@@ -1,11 +1,17 @@
+#formnames {
+    text-align: center;
+}
+
 #username {
-    box-shadow: 5px 10px red;
+    width: 40%;
+    height: 60px;
 }
 
 #password {
-    box-shadow: 5px 10px red;
+    width: 40%;
+    height: 60px;
 }
 
-#formnames {
-    text-align: center;
+#link {
+    color: white;
 }

@@ -6,8 +6,6 @@ import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
 import "./Login.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
 import 'bulma/css/bulma.css';
 import Bulma from '@vizuaalog/bulmajs';
 
@@ -62,27 +60,34 @@ export default function Login({ setUser }) {
   return (
     <div  >
       <style>{'body { background-color: whitesmoke;  min-height: 100vh }'}</style>
-      <div >
-        <form id="formnames" className="form-inline" onSubmit={handleSubmit}  >
+      <div className="field">
+        <form id="formnames" onSubmit={handleSubmit}  >
           <div>
             <h1 id="header" className="subtitle is-1">  <style>{'body { background: whitesmoke; }'}</style>Login In</h1>
-
           </div>
           <br />
           <br />
-          <label htmlFor="username"> <p className="is-size-5"> Username: </p> <input
-            id="username"
-            className="input is-large"
-            type="text"
-            value={username}
-            placeholder="Enter username"
-            onChange={handleUsernameChange}
-          /> </label>
+          <div>
+            <label htmlFor="username" className="label"> <p className="is-size-5"> Username: </p>
+              <input
+                className="input is-danger"
+                id="username"
+                type="text"
+                value={username}
+                placeholder="Enter username"
+                onChange={handleUsernameChange}
+              />
+            </label>
+
+
+          </div>
+
+
 
           <br /> <br />
           <div>
-            <label htmlFor="password"> <p className="is-size-5"> Password: </p>   <input
-              className="input is-large"
+            <label htmlFor="password" className="label"> <p className="is-size-5"> Password: </p>   <input
+              className="input is-danger"
               id="password"
               type="password"
               value={password}
@@ -94,7 +99,7 @@ export default function Login({ setUser }) {
           </div>
           <button id="button" className="button is-danger" type="submit">Login</button>
           <br /> <br />
-          <Link to="/register">Not a user? Please Sign up here</Link>
+          <button className="button is-danger" type="button"><Link to="/register" id="link">Not a user? Please Sign up here</Link></button>
         </form>
       </div >
 

@@ -27,13 +27,11 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Landing />
-
         </Route>
-        <Route exact path="/aboutus">
+        <Route path="/aboutus">
           <Aboutus />
-
         </Route>
-        <Route exact path="/contactus">
+        <Route path="/contactus">
           <ContactUS />
 
         </Route>
