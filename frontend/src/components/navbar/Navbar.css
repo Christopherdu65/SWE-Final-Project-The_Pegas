@@ -26,7 +26,7 @@
   font-size: 17px;
 }
 
-.navbar h1 {
+#tivia {
   font-size: 30px;
   background-image: linear-gradient(45deg, red, orange, white);
   background-clip: text;
