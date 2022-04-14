@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/">
           {user ? <Settings setUser={setUser} /> : <Login setUser={setUser} />}
         </Route>
-        <Route exact path="/leaderboard">
+        <Route path="/leaderboard">
           <Leaderboard />
         </Route>
         <Route path="/quiz">
