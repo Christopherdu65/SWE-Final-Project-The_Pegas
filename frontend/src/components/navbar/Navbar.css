@@ -1,37 +1,46 @@
 .navbar {
-    background-color: black;
-    overflow: hidden;
-    list-style-type: none;
+  background-color: whitesmoke;
+  overflow: hidden;
+  list-style-type: none;
+
+
 }
 
+
+
 .navbar .left {
-    float: left;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-  }
+  float: left;
+  color: whitesmoke;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
 
-  .navbar .right {
-    float: right;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-  }
+.navbar .right {
+  float: right;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
 
-  .navbar h1 { 
-    color: red;
-  }
-  
-  .navbar li:hover {
-    background-color: #ddd;
-    color: black;
-  }
+.navbar h1 {
+  font-size: 30px;
+  background-image: linear-gradient(45deg, red, orange, white);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
 
-a { 
-    text-decoration: none;
-    color: red;
+.navbar li:hover {
+  background-color: #ddd;
+
+}
+
+a {
+  text-decoration: none;
+  color: red;
+
 }
