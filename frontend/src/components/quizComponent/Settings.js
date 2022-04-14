@@ -4,8 +4,6 @@
 /* eslint-disable react/jsx-filename-extension */
 import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
 import 'bulma/css/bulma.css';
 
 

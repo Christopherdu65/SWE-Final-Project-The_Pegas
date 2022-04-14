@@ -41,6 +41,7 @@ export default function Register({ setUser }) {
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.success != null) {
+
           Bulma().alert({
             type: 'success',
             title: 'Alert',
@@ -48,9 +49,11 @@ export default function Register({ setUser }) {
             confirm: 'confirm',
 
 
+
           });
           setIsRegistered(true)
         } else {
+
           Bulma().alert({
             type: 'danger',
             title: 'Alert',
@@ -106,7 +109,7 @@ export default function Register({ setUser }) {
 
             <br /> <br />
           </div>
-          <button type="submit">Register</button>
+          <button id="button" type="submit">Register</button>
           <br />
           <Link to="/login">Already a user? sign in here</Link>
           <br /> <br /> <br />

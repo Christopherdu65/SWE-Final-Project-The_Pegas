@@ -43,6 +43,7 @@ export default function Login({ setUser }) {
         if (data.success && data.success != null) {
           setUser(true);
         } else {
+
           Bulma().alert({
             type: 'danger',
             title: 'Alert',
@@ -50,6 +51,9 @@ export default function Login({ setUser }) {
             confirm: 'Confirm!',
 
           });
+
+
+
         }
       });
   };
@@ -88,7 +92,7 @@ export default function Login({ setUser }) {
 
             <br /> <br />
           </div>
-          <button className="button is-danger" type="submit">Login</button>
+          <button id="button" className="button is-danger" type="submit">Login</button>
           <br /> <br />
           <Link to="/register">Not a user? Please Sign up here</Link>
         </form>
