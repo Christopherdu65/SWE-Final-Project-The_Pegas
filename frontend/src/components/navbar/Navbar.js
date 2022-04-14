@@ -16,15 +16,16 @@ function Navbar({ user, setUsers }) {
     fetch(`/api/logout`)
       .then((res) => res.json())
       .then((data) => {
-        if (data.success) {
+        if (data.success && data.success != null) {
           setUsers(false);
+
           Bulma().alert({
             type: 'success',
             title: 'Alert',
             body: 'You have been Logged out!',
             confirm: 'Confirm!',
 
-          });
+          })
         }
       });
 
@@ -57,7 +58,7 @@ function Navbar({ user, setUsers }) {
                   </NavLink>
                 </li>
                 <li className="button is-light">
-                  <NavLink to="/login" onClick={handleLogout}>  Logout
+                  <NavLink id="button" to="/login" onClick={handleLogout}>  Logout
                   </NavLink>
                 </li>
 
