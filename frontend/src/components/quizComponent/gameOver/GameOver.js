@@ -7,6 +7,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import './GameOver.css';
+import 'bulma/css/bulma.css';
 
 function GameOver(props) {
     const { trigger, quizPts, possiblePts } = props;
@@ -28,23 +29,22 @@ function GameOver(props) {
             <div className="popup">
                 <div className="summary">
                     <h2>{message}</h2>
-
+                    <br/>
                     <p>
-                        You scored {quizPts} out of {possiblePts} points
+                        You scored {quizPts} out of {possiblePts} points!
                     </p>
+                    <br/>
+                    <h2 class="has-text-weight-bold has-text-danger">{Math.round(ratio * 100)}%</h2>
+                    <br/>
                 </div>
 
-                <div className="buttons">
-                    <Link to="/quiz">
-                        <button className="play-again" type="button">Play again?</button>
+                <div className="buttons" class="tags is-centered">
+                    <Link to="/">
+                        <button className="play-again" type="button" class="button is-danger is-rounded">Play another quiz?</button>
                     </Link>
 
                     <Link to="/leaderboard">
-                        <button className="leaderboard" type="button">See leaderboard!</button>
-                    </Link>
-
-                    <Link to="/">
-                        <button className="play-different" type="button">Play a different quiz!</button>
+                        <button className="leaderboard" type="button" class="my-3 button is-danger is-rounded">See leaderboard!</button>
                     </Link>
                 </div>
             </div>
