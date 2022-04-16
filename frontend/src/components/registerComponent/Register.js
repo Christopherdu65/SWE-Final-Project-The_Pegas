@@ -6,8 +6,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import "bulma/css/bulma.css";
 import Bulma from "@vizuaalog/bulmajs";
+import "bulma/bulma.sass";
 
 export default function Register({ setUser }) {
     const [username, setUsername] = useState("");
