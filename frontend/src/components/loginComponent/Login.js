@@ -6,7 +6,7 @@ import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
 import "./Login.css";
-import "bulma/css/bulma.css";
+import "bulma/bulma.sass";
 import Bulma from "@vizuaalog/bulmajs";
 
 export default function Login({ setUser }) {

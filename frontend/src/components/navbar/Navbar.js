@@ -4,10 +4,11 @@
 // import "./components/quizComponent/Settings.js";
 
 import "./Navbar.css";
-import "bulma/css/bulma.css";
+
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Bulma from "@vizuaalog/bulmajs";
+import "bulma/bulma.sass";
 
 function Navbar({ user, setUsers }) {
     const handleLogout = () => {
