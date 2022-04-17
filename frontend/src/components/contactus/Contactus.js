@@ -10,7 +10,9 @@ import 'bulma/css/bulma.css';
 
 function ContactUS() {
     return (
-        <div>
+        <div  >
+            <style>{'body { background:  linear-gradient(45deg, whitesmoke, salmon);  min-height: 100vh; }'}</style>
+
             <h2 className="is-size-1">Meet The Team</h2>
             <h2 className="is-size-1">You can Contact US </h2>
             <p> Please contact Christopher Raoul at:  </p>

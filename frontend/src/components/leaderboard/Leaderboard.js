@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 import { useState, useEffect } from "react";
-import Select from "react-select";
+
 import LeaderList from "./LeaderList";
 import "./Leaderboard.css";
 
@@ -36,7 +36,7 @@ function Leaderboard() {
       <h1>Leaderboard</h1>
 
       <center>
-        <Select
+        <div
           className="selectcat"
           options={options}
           placeholder="Pick a category!"

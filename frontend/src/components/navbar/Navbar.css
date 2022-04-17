@@ -1,9 +1,16 @@
 .navbar {
-  background-color: whitesmoke;
-  overflow: hidden;
+
   list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: larger;
+  background-color: whitesmoke;
 
 
+}
+
+li {
+  display: inline;
 }
 
 
@@ -39,8 +46,14 @@
 
 }
 
-a {
+#a {
   text-decoration: none;
   color: red;
 
+}
+
+#dropdown {
+  text-decoration: none;
+  color: red;
+  font-size: 17px;
 }
