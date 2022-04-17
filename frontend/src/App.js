@@ -29,17 +29,17 @@ function App() {
           <Landing />
 
         </Route>
-        <Route exact path="/aboutus">
+        <Route path="/aboutus">
           <Aboutus />
 
         </Route>
-        <Route exact path="/contactus">
+        <Route path="/contactus">
           <ContactUS />
 
         </Route>
 
         <Route path="/settings">
-          {user ? <Settings setUser={setUser} /> : <Login setUser={setUser} />}
+          {user ? <Settings /> : <Login setUser={setUser} />}
         </Route>
         <Route path="/leaderboard">
           <Leaderboard />
