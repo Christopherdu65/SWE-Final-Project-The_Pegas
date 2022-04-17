@@ -17,7 +17,6 @@ import Landing from "./components/landing/Landing";
 import Aboutus from "./components/aboutus/Aboutus";
 import ContactUS from "./components/contactus/Contactus";
 
-
 function App() {
   const [user, setUser] = useState(false);
 
