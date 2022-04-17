@@ -6,6 +6,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useState, useEffect } from "react";
 import "./Profile.css";
+import "bulma/css/bulma.min.css";
 
 function Profile() {
     const [avatar, setAvatar] = useState();
@@ -43,63 +44,93 @@ function Profile() {
         32: "Entertainment: Cartoon & Animations",
     };
 
-    // to-do: fetch current user logged in
-    useEffect(() => {
-        fetch("api/me", {})
-            .then((response) => response.json())
-            .then((data) => {
-                setUsername(data.username);
-                setPoints(Object.entries(data.points));
-                setPlays(Object.entries(data.plays));
-                setRecents(data.recents);
-                setAvatar(
-                    `https://avatars.dicebear.com/api/human/${username}.svg`
-                );
-            })
-            .catch((error) => console.log(error));
-    }, []);
+  // to-do: fetch current user logged in
+  useEffect(() => {
+    fetch("api/me", {})
+      .then((response) => response.json())
+      .then((data) => {
+        setUsername(data.username);
+        setPoints(Object.entries(data.points));
+        setPlays(Object.entries(data.plays));
+        setRecents(data.recents);
+        setAvatar(`https://avatars.dicebear.com/api/human/${username}.svg`);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+  
+  return (
+    <div className="container box mt-4 mb-4">
+      <br />
+      <h1 className="title is-1 is-family-monospace">Your Profile</h1>
+      <br />
+      <br />
+      <br />
 
-    //   const mapIdToName = (obj) => {
-    //     const res = {}
-    //     Object.keys(obj).map((item, i) => (
-
-    //     ))
-
-    //   }
-    return (
-        <div className="Profile">
-            <div className="userinfo">
-                <img className="avatar" src={avatar} alt="profile image" />
-                <div>
-                    <p>Username: {username}</p>
-                    <h2>Total Score per category</h2>
-                    {points &&
-                        points.map((point, index) => (
-                            <p key={index}>
-                                {CATEGORY_MAPPER[point[0]]}: {point[1]}
-                            </p>
-                        ))}
-                    {/* <p>Total points: {points}</p> */}
-                </div>
-            </div>
-            <h2>Your Playtime per category</h2>
-            {plays.map((item, index) => (
-                <p key={index}>
-                    {CATEGORY_MAPPER[item[0]]}: {item[1]}
+      <div className="Profile columns">
+        <div className="userinfo column is-one-third">
+          <img className="avatar" src={avatar} alt="profile image" />
+          <div>
+            <p className="is-family-monospace has-text-weight-bold">
+              Username: {username}
+            </p>
+            <h5 className="title is-5 has-text-danger is-family-monospace">
+              <br />
+              Total Score/Category
+            </h5>
+            {points &&
+              points.map((point, index) => (
+                <p key={index} className="is-family-monospace">
+                  {CATEGORY_MAPPER[point[0]]}:
+                  <span className="has-text-weight-bold">{point[1]} pts</span>
                 </p>
-            ))}
-            <br />
-            <h2>Your Recent quizzes:</h2>
-            {recents &&
-                recents.map((recent, index) => (
-                    <div key={index}>
-                        <p>Category: {CATEGORY_MAPPER[recent.category]}</p>
-                        <p>Score:{recent.score}</p>
-                        <p>Maxium:{recent.maximum}</p>
-                    </div>
-                ))}
+              ))}
+          </div>
         </div>
-    );
+        <div className="column is-one-third">
+          <h5 className="title is-5 has-text-danger is-family-monospace">
+            Your Playtime/Category
+          </h5>
+          {plays.map((item, index) => (
+            <div key={index}>
+              <p className="is-family-monospace">
+                <span className="has-text-weight-bold">
+                  {CATEGORY_MAPPER[item[0]]}:
+                </span>
+                {item[1]} plays
+              </p>
+              <hr />
+            </div>
+          ))}
+          <br />
+        </div>
+        <div className="column is-one-third">
+          <h5 className="title is-5 has-text-danger is-family-monospace">
+            Your Recent quizzes:
+          </h5>
+          {recents &&
+            recents.map((recent, index) => (
+              <div key={index}>
+                <p className="is-family-monospace">
+                  <span className="has-text-weight-bold">Category: </span>
+                  <span className="has-text-danger">
+                    {CATEGORY_MAPPER[recent.category]}
+                  </span>
+                </p>
+                <p className="is-family-monospace">
+                  <span className="has-text-weight-bold">Score: </span>
+                  {recent.score} pts
+                </p>
+                <p className="is-family-monospace">
+                  <span className="has-text-weight-bold">Maxium: </span>
+                  {recent.maximum} pts
+                </p>
+                <hr />
+              </div>
+            ))}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Profile;
