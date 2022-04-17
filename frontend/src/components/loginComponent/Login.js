@@ -59,16 +59,18 @@ export default function Login({ setUser }) {
 
   return (
     <div  >
-      <style>{'body { background-color: whitesmoke;  min-height: 100vh }'}</style>
+
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cormorant Garamond" />
+      <style>{'body { background-image: url(../image/loginimage.jpg);  background-repeat:no-repeat;background-repeat:no-repeat; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;background-color: whitesmoke; min-height: 100vh; font-family: "Cormorant Garamond"; }'}</style>
       <div className="field">
         <form id="formnames" onSubmit={handleSubmit}  >
           <div>
-            <h1 id="header" className="subtitle is-1">  <style>{'body { background: whitesmoke; }'}</style>Login In</h1>
+            <h1 className="login">  Login in Here to get started</h1>
           </div>
           <br />
           <br />
           <div>
-            <label htmlFor="username" className="label"> <p className="is-size-5"> Username: </p>
+            <label htmlFor="username" className="labels"> <p className="is-size-2"> Username: </p>
               <input
                 className="input is-danger"
                 id="username"
@@ -83,10 +85,9 @@ export default function Login({ setUser }) {
           </div>
 
 
-
           <br /> <br />
           <div>
-            <label htmlFor="password" className="label"> <p className="is-size-5"> Password: </p>   <input
+            <label htmlFor="password" className="labels"> <p className="is-size-2"> Password: </p>   <input
               className="input is-danger"
               id="password"
               type="password"
@@ -97,9 +98,23 @@ export default function Login({ setUser }) {
 
             <br /> <br />
           </div>
-          <button id="button" className="button is-danger" type="submit">Login</button>
+          <button id="button" className="button is-danger is-light is-large" type="submit">
+
+            <p > Login</p>
+          </button>
           <br /> <br />
-          <button className="button is-danger" type="button"><Link to="/register" id="link">Not a user? Please Sign up here</Link></button>
+          <div>
+
+            <button id="button" className="button is-danger is-light is-large" type="button">
+              <div>
+                <Link to="/register" className="Roboto">
+                  <p id="link">Not a user? Please Sign up here</p>
+
+                </Link>
+              </div>
+            </button>
+          </div>
+
         </form>
       </div >
 
