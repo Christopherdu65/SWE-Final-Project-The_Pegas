@@ -5,9 +5,6 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-
-
 import 'bulma/css/bulma.css';
 import Bulma from '@vizuaalog/bulmajs';
 
@@ -113,7 +110,7 @@ export default function Register({ setUser }) {
 
             <br /> <br />
           </div>
-          <button id="button" className="button is-danger is-light is-large" type="submit">Register</button>
+          <button id="link" className="button is-danger is-light is-large" type="submit">Register</button>
           <br />
           <button type="button" className="button is-danger is-light is-large"> <Link to="/login" id="link">Already a user? sign in here</Link></button>
           <br /> <br /> <br />
