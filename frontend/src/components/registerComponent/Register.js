@@ -55,24 +55,20 @@ export default function Register({ setUser }) {
   });
   return (
     <div>
-      <style>
-        {"body { background-color: whitesmoke;  min-height: 100vh }"}
-      </style>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cormorant Garamond" />
+      <style>{'body { background-image: url( ../image/registerimage.jpg), url(../image/registerimage.jpg);  background-repeat:no-repeat;  background-position: right top, left top; background-color: white; min-height: 100vh; font-family: "Cormorant Garamond"; }'}</style>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
           <div>
-            <h1 id="header" className="subtitle is-1">
-              {" "}
-              <style>{"body { background: whitesmoke; }"}</style> Welcome!
-            </h1>
-            <h2 className="subtitle is-3">Register With Us</h2>
+            <h2 className="h2">Register Below</h2>
           </div>
           <br /> <br />
-          <label htmlFor="username">
-            <p className="is-size-5" /> Username:
+
+
+          <label htmlFor="username" className="labels"><p className="is-size-2"> Username: </p>
             <input
               id="username"
-              className="input is-large"
+              className="input is-danger is-light"
               type="text"
               value={username}
               placeholder="Enter username"
@@ -81,29 +77,30 @@ export default function Register({ setUser }) {
           </label>
           <br />
           <br />
+
           <div>
-            <label htmlFor="password">
-              <p className="is-size-5" /> Password:
+            <label htmlFor="password" className="labels"><p className="is-size-2">Password: </p>
               <input
                 id="password"
-                className="input is-large"
+                className="input is-danger"
                 type="password"
                 value={password}
                 placeholder="Enter password"
                 onChange={handlePasswordChange}
               />
             </label>
+
             <br /> <br />
           </div>
-          <button id="button" type="submit">
-            Register
-          </button>
+          <button id="link" className="button is-danger is-light is-large" type="submit">Register</button>
           <br />
-          <Link to="/login">Already a user? sign in here</Link>
+          <button type="button" className="button is-danger is-light is-large"> <Link to="/login" id="link">Already a user? sign in here</Link></button>
           <br /> <br /> <br />
           <div>{isRegistered && <Link to="/login">Continue</Link>}</div>
         </form>
-      </div>
-    </div>
+
+      </div >
+    </div >
+
   );
 }
