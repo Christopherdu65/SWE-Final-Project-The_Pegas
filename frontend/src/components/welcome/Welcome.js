@@ -79,7 +79,7 @@ function Welcome() {
 
                 <p id="slogans">Double The Winnings, Double The Trivia</p>
                 <section id="slogans">
-                    Here You can come and perfect your skills! Follow the Walkthrough to see how our app works
+                    Here you can come and perfect your skills! Follow the Walkthrough to see how our app works
                     Enjoy Gaming!
                 </section>
 
