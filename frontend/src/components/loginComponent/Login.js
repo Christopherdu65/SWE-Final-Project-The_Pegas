@@ -61,7 +61,7 @@ export default function Login({ setUser }) {
     <div  >
 
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cormorant Garamond" />
-      <style>{'body { background-image: url(../image/loginimage.jpg);  background-repeat:no-repeat;background-repeat:no-repeat; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;background-color: whitesmoke; min-height: 100vh; font-family: "Cormorant Garamond"; }'}</style>
+      <style>{'body { background-image: url(../image/loginimage.jpg);  background-repeat:no-repeat; background-repeat:no-repeat; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;background-color: whitesmoke; min-height: 100vh; font-family: "Cormorant Garamond"; }'}</style>
       <div className="field">
         <form id="formnames" onSubmit={handleSubmit}  >
           <div>
@@ -98,14 +98,14 @@ export default function Login({ setUser }) {
 
             <br /> <br />
           </div>
-          <button id="button" className="button is-danger is-light is-large" type="submit">
+          <button id="link" className="button is-danger is-light is-large" type="submit">
 
             <p > Login</p>
           </button>
           <br /> <br />
           <div>
 
-            <button id="button" className="button is-danger is-light is-large" type="button">
+            <button className="button is-danger is-light is-large" type="button">
               <div>
                 <Link to="/register" className="Roboto">
                   <p id="link">Not a user? Please Sign up here</p>

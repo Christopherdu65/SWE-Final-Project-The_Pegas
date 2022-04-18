@@ -40,7 +40,7 @@ function Navbar({ user, setUsers }) {
         <style>{'body {font-family: "Cormorant Garamond"; }'}</style>
 
         <div className="navbar-brand">
-          <h1 id="tivia" className="navbar-item">  <NavLink id="a" to="/"> Trivia App</NavLink ></h1 >
+          <h1 id="tivia" className="navbar-item">  <NavLink className="start" id="a" to="/"> Trivia App</NavLink ></h1 >
           <a id="a" role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -56,7 +56,7 @@ function Navbar({ user, setUsers }) {
             <NavLink className="playnow" id="a" to="/settings">Play Now</NavLink>
           </li>
           <li className="navbar-item">
-            <NavLink id="a" to="/leaderboard">Leaderboard</NavLink>
+            <NavLink className="leaderboard" id="a" to="/leaderboard">Leaderboard</NavLink>
           </li>
         </div>
         <hr className="navbar-divider" />
@@ -64,11 +64,11 @@ function Navbar({ user, setUsers }) {
         <div className="navbar-end">
 
           <li className="navbar-item">
-            <NavLink id="a" to="/profile" >  Profile
+            <NavLink id="a" className="profile" to="/profile" >  Profile
             </NavLink>
           </li>
           <li className="navbar-item">
-            <NavLink id="a" to="/login" onClick={handleLogout}>  Logout
+            <NavLink id="a" className="logout" to="/" onClick={handleLogout}>  Logout
             </NavLink>
           </li>
 
@@ -113,11 +113,11 @@ function Navbar({ user, setUsers }) {
         <div className="navbar-dropdown">
           <div className="navbar-item">
             <div className="buttons">
-              <li className="navbar-item">
+              <li id="dropdown" className="navbar-item">
                 <NavLink id="a" to="/login">Login Here!</NavLink>
               </li>
 
-              <li className="navbar-item">
+              <li id="dropdown" className="navbar-item">
                 <NavLink id="a" to="/register">  Register Here! </NavLink>
               </li>
             </div>

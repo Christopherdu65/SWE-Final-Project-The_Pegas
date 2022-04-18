@@ -3,41 +3,93 @@
 
 // import { React, useEffect, useState } from "react";
 
-import React from 'react';
+import React from "react";
+import "bulma/bulma.sass";
+
+import Joyride from 'react-joyride';
+import { NavLink } from "react-router-dom";
+
 
 function Walkthrough() {
+
+    const state = {
+        steps: [
+            {
+                target: '.start',
+                content: '  Got a competive spirit and want to improve click next to get started',
+            },
+            {
+                target: '.playnow',
+                content: 'Click This Button to Play!',
+            },
+            {
+                target: '.leaderboard',
+                content: 'Got the competitive spirit, Press to check out your competition!',
+            },
+            {
+                target: '.profile',
+                content: 'Wanna Improve? Click to see your score!',
+            },
+
+            {
+                target: '.logout',
+                content: 'Wanna leave click here to log out!',
+            },
+            {
+                target: '.playnow',
+                content: <button type="button" className="button is-success is-danger is-light">
+                    <NavLink to="/settings">Start Now</NavLink>
+                </button>,
+            },
+
+        ]
+    };
+
+    const { steps } = state;
+
     return (
-        <div>
-            <section className="left">
-                Please press Play Now to start your game
-            </section>
-            <section className="right">
-                Click profile to check your current stats
-            </section>
-            <section>
-                Up here
+        <div className="app">
+            <Joyride
+                steps={steps}
+                showSkipButton
+                showProgress
+                continuous
+                locale
+                target
+            />
 
-            </section>
+
         </div>
+    );
 
-    )
+
 }
+
 function Welcome() {
 
     return (
         <div>
             <div className="navigation">
+
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cormorant Garamond" />
-                <style>{'body {   font-family: "Cormorant Garamond"; }'}</style>
-                <h2 className="slogan">Welcome to Trivia App</h2>
-                <p id="slogan">Double The Winnings, Double The Trivia</p>
+                <style>{'body {    background-image: linear-gradient(45deg, whitesmoke, whitesmoke,  #ff0038); min-height: 100vh; font-family: "Cormorant Garamond"; }'}</style>
+                <br /> <br />
+                <h1 className="slogan1">Welcome to the Trivia App</h1>
+                <br />
+
+                <p id="slogans">Double The Winnings, Double The Trivia</p>
+                <section id="slogans">
+                    Here You can come and perfect your skills! Follow the Walkthrough to see how our app works
+                    Enjoy Gaming!
+                </section>
+
+
                 <Walkthrough />
 
-            </div>
 
-
+            </div >
         </div >
-    )
-
+    );
 }
+
 export default Welcome;

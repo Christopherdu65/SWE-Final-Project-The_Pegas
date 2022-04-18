@@ -14,13 +14,11 @@ import Leaderboard from "./components/leaderboard/Leaderboard";
 import Navbar from "./components/navbar/Navbar";
 import Welcome from "./components/welcome/Welcome";
 import Landing from "./components/landing/Landing";
-import Aboutus from "./components/aboutus/Aboutus";
-import ContactUS from "./components/contactus/Contactus";
+
 
 
 function App() {
   const [user, setUser] = useState(false);
-
   return (
     <Router>
       <Navbar user={user} setUsers={setUser} />
@@ -28,14 +26,6 @@ function App() {
         <Route exact path="/">
           <Landing />
         </Route>
-        <Route path="/aboutus">
-          <Aboutus />
-        </Route>
-        <Route path="/contactus">
-          <ContactUS />
-
-        </Route>
-
         <Route path="/settings">
           {user ? <Settings setUser={setUser} /> : <Login setUser={setUser} />}
         </Route>
