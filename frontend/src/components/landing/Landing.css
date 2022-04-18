@@ -1,0 +1,195 @@
+.left {
+    left: 0;
+
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+#profilepic {
+    width: 100%;
+    height: 200px;
+
+}
+
+#profilepic1 {
+    width: 100%;
+    height: 210px;
+
+}
+
+#minion1 {
+    height: 200px;
+}
+
+.column {
+    float: left;
+    width: 33.3%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+}
+
+.container::after,
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+@media screen and (max-width: 650px) {
+    .column {
+        width: 300px;
+        display: block;
+        height: 300px;
+    }
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+    padding: 0 16px;
+}
+
+
+.h2 {
+    text-align: center;
+}
+
+.row {
+    font-size: 20px;
+
+}
+
+.centered {
+    font-size: 80px;
+}
+
+
+.center {
+    font-size: 40px;
+    color: black;
+}
+
+
+
+.meet {
+    float: left;
+    padding: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+
+}
+
+.feature {
+    float: left;
+    padding: 10px;
+}
+
+.card {
+    border: 1px dotted black;
+    display: block;
+    position: relative;
+
+}
+
+.row {
+    border: 1px hidden whitesmoke;
+    text-align: center;
+
+}
+
+.aboutparagraph {
+    float: left;
+    padding: 10px;
+
+    font-size: 20px;
+    color: black;
+
+
+}
+
+.image {
+    width: 300px;
+    height: 300px;
+    float: left;
+    display: block;
+    display: inline
+}
+
+.contact {
+    border: 1px solid black;
+}
+
+.slogan {
+    font-size: 60px;
+}
+
+.slogan1 {
+    font-size: 100px;
+    text-transform: uppercase;
+    background-image: linear-gradient(-225deg,
+            #231557 0%,
+            #44107a 29%,
+            #ff1361 67%,
+            #fff800 100%);
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 2s linear infinite;
+    display: inline-block;
+
+}
+
+@keyframes textclip {
+    to {
+        background-position: 200% center;
+    }
+}
+
+#slogans {
+    font-size: 50px;
+    background-image: linear-gradient(-225deg,
+            #231557 0%,
+            #44107a 29%,
+            #ff1361 67%,
+            #fff800 100%);
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 2s linear infinite;
+    display: inline-block;
+}
+
+.rotate {
+    position: relative;
+    animation: rotation 5s 2;
+    animation-duration: 3s;
+    width: 100%;
+    height: 400px;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}
