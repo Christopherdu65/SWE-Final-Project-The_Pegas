@@ -16,7 +16,6 @@ import Welcome from "./components/welcome/Welcome";
 import Landing from "./components/landing/Landing";
 
 
-
 function App() {
   const [user, setUser] = useState(false);
   return (
@@ -27,7 +26,7 @@ function App() {
           <Landing />
         </Route>
         <Route path="/settings">
-          {user ? <Settings setUser={setUser} /> : <Login setUser={setUser} />}
+          {user ? <Settings /> : <Login setUser={setUser} />}
         </Route>
         <Route path="/leaderboard">
           <Leaderboard />

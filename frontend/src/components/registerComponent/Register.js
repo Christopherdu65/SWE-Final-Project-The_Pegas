@@ -5,16 +5,14 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import 'bulma/css/bulma.css';
-import Bulma from '@vizuaalog/bulmajs';
-
+import "bulma/css/bulma.css";
+import { useAlert } from "react-alert";
 
 export default function Register({ setUser }) {
+  const alert = useAlert();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
-
-
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -38,27 +36,11 @@ export default function Register({ setUser }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.success && data.success != null) {
-
-          Bulma().alert({
-            type: 'success',
-            title: 'Alert',
-            body: 'Your registration has been successful',
-            confirm: 'confirm',
-
-
-
-          });
-          setIsRegistered(true)
+        if (data.success) {
+          setIsRegistered(true);
+          alert.show("Your registration has been sucessfull!");
         } else {
-
-          Bulma().alert({
-            type: 'danger',
-            title: 'Alert',
-            body: 'UserName or Password Is Taken',
-            confirm: 'confirm',
-
-          });
+          alert.show("Username is already taken or Password is invalid");
         }
       });
   };
@@ -73,17 +55,23 @@ export default function Register({ setUser }) {
   });
   return (
     <div>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cormorant Garamond" />
-      <style>{'body { background-image: url( ../image/registerimage.jpg), url(../image/registerimage.jpg);  background-repeat:no-repeat;  background-position: right top, left top; background-color: white; min-height: 100vh; font-family: "Cormorant Garamond"; }'}</style>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Cormorant Garamond"
+      />
+      <style>
+        {
+          'body { background-image: url( ../image/registerimage.jpg), url(../image/registerimage.jpg);  background-repeat:no-repeat;  background-position: right top, left top; background-color: white; min-height: 100vh; font-family: "Cormorant Garamond"; }'
+        }
+      </style>
       <div>
         <form className="form" onSubmit={handleSubmit}>
           <div>
             <h2 className="h2">Register Below</h2>
           </div>
           <br /> <br />
-
-
-          <label htmlFor="username" className="labels"><p className="is-size-2"> Username: </p>
+          <label htmlFor="username" className="labels">
+            <p className="is-size-2"> Username: </p>
             <input
               id="username"
               className="input is-danger is-light"
@@ -95,9 +83,9 @@ export default function Register({ setUser }) {
           </label>
           <br />
           <br />
-
           <div>
-            <label htmlFor="password" className="labels"><p className="is-size-2">Password: </p>
+            <label htmlFor="password" className="labels">
+              <p className="is-size-2">Password: </p>
               <input
                 id="password"
                 className="input is-danger"
@@ -107,18 +95,26 @@ export default function Register({ setUser }) {
                 onChange={handlePasswordChange}
               />
             </label>
-
             <br /> <br />
           </div>
-          <button id="link" className="button is-danger is-light is-large" type="submit">Register</button>
+          <button
+            id="link"
+            className="button is-danger is-light is-large"
+            type="submit"
+          >
+            Register
+          </button>
           <br />
-          <button type="button" className="button is-danger is-light is-large"> <Link to="/login" id="link">Already a user? sign in here</Link></button>
+          <button type="button" className="button is-danger is-light is-large">
+            {" "}
+            <Link to="/login" id="link">
+              Already a user? sign in here
+            </Link>
+          </button>
           <br /> <br /> <br />
           <div>{isRegistered && <Link to="/login">Continue</Link>}</div>
         </form>
-
-      </div >
-    </div >
-
+      </div>
+    </div>
   );
 }
