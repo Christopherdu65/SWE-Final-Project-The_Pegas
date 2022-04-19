@@ -50,9 +50,7 @@ function StarComponent({ achievements, assignStars }) {
         </span>
       );
     default:
-      return (
-        <span />
-      );
+      return <span />;
   }
 }
 
@@ -63,7 +61,6 @@ function Profile() {
   const [plays, setPlays] = useState([]);
   const [recents, setRecents] = useState();
   const [achievements, setAchievements] = useState();
-
 
   const CATEGORY_MAPPER = {
     0: "Random",
@@ -113,7 +110,6 @@ function Profile() {
       .then((res) => res.json())
       .then((data) => {
         setAchievements(Object.entries(data));
-        // console.log(Object.entries(data)[2][1].plays.length)
       });
   }, []);
 
@@ -121,8 +117,6 @@ function Profile() {
     let numStars = 0;
     arr.map((item, i) => {
       if (i < arr.length - 1) {
-        // console.log(`this is index ${i}`)
-        // stars+=1;
         if (item[1].plays.length === 1 && item[1].points.length === 1) {
           numStars += 1;
         }
