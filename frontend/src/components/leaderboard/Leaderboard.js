@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/jsx-filename-extension */
@@ -7,7 +8,7 @@ import Select from "react-select";
 import LeaderList from "./LeaderList";
 import "./Leaderboard.css";
 
-function Leaderboard() {
+function Leaderboard({ setUser }) {
   const [leaders, setLeaders] = useState([]);
   const [category, setCategory] = useState(0);
   const [url, setUrl] = useState("/api/leaderboard");
@@ -20,6 +21,15 @@ function Leaderboard() {
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    fetch(`api/me`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setUser(true);
+        }
+      });
+  }, []);
   const options = [
     { value: 0, label: "Cat0" },
     { value: 1, label: "Cat1" },
