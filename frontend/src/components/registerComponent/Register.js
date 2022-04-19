@@ -5,8 +5,11 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "bulma/css/bulma.css";
+import { useAlert } from "react-alert";
 
 export default function Register({ setUser }) {
+  const alert = useAlert();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
@@ -34,10 +37,10 @@ export default function Register({ setUser }) {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          alert("Registration Sucessfull");
-          setIsRegistered(true)
+          setIsRegistered(true);
+          alert.show("Your registration has been sucessfull!");
         } else {
-          alert("username is already in use or invalid");
+          alert.show("Username is already taken or Password is invalid");
         }
       });
   };
@@ -51,35 +54,67 @@ export default function Register({ setUser }) {
       });
   });
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <h1>Register With Us</h1>
-      </div>
-      <br /> <br />
-      <label htmlFor="username">Username: </label>
-      <input
-        type="text"
-        value={username}
-        placeholder="Enter username"
-        onChange={handleUsernameChange}
+    <div>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Cormorant Garamond"
       />
-      <br />
-      <br />
+      <style>
+        {
+          'body { background-image: url( ../image/registerimage.jpg), url(../image/registerimage.jpg);  background-repeat:no-repeat;  background-position: right top, left top; background-color: white; min-height: 100vh; font-family: "Cormorant Garamond"; }'
+        }
+      </style>
       <div>
-        <label htmlFor="password">Password: </label>
-        <input
-          type="password"
-          value={password}
-          placeholder="Enter password"
-          onChange={handlePasswordChange}
-        />
-        <br /> <br />
+        <form className="form" onSubmit={handleSubmit}>
+          <div>
+            <h2 className="h2">Register Below</h2>
+          </div>
+          <br /> <br />
+          <label htmlFor="username" className="labels">
+            <p className="is-size-2"> Username: </p>
+            <input
+              id="username"
+              className="input is-danger is-light"
+              type="text"
+              value={username}
+              placeholder="Enter username"
+              onChange={handleUsernameChange}
+            />
+          </label>
+          <br />
+          <br />
+          <div>
+            <label htmlFor="password" className="labels">
+              <p className="is-size-2">Password: </p>
+              <input
+                id="password"
+                className="input is-danger"
+                type="password"
+                value={password}
+                placeholder="Enter password"
+                onChange={handlePasswordChange}
+              />
+            </label>
+            <br /> <br />
+          </div>
+          <button
+            id="link"
+            className="button is-danger is-light is-large"
+            type="submit"
+          >
+            Register
+          </button>
+          <br />
+          <button type="button" className="button is-danger is-light is-large">
+            {" "}
+            <Link to="/login" id="link">
+              Already a user? sign in here
+            </Link>
+          </button>
+          <br /> <br /> <br />
+          <div>{isRegistered && <Link to="/login">Continue</Link>}</div>
+        </form>
       </div>
-      <button type="submit">Register</button>
-      <br />
-      <Link to="/login">Already a user? sign in here</Link>
-      <br /> <br /> <br />
-      <div>{isRegistered && <Link to="/login">Continue</Link>}</div>
-    </form>
+    </div>
   );
 }
