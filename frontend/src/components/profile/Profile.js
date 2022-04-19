@@ -104,7 +104,7 @@ function Profile() {
       })
       .catch((error) => console.log(error));
   }, []);
-  
+
   useEffect(() => {
     fetch("/api/achievements")
       .then((res) => res.json())
@@ -145,82 +145,82 @@ function Profile() {
       <br />
       <br />
       <br />
-  
-  return (
-    <div className="container box mt-4 mb-4">
-      <br />
-      <h1 className="title is-1 is-family-monospace">Your Profile</h1>
-      <br />
-      <br />
-      <br />
+      return (
+      <div className="container box mt-4 mb-4">
+        <br />
+        <h1 className="title is-1 is-family-monospace">Your Profile</h1>
+        <br />
+        <br />
+        <br />
 
-      <div className="Profile columns">
-        <div className="userinfo column is-one-third">
-          <img className="avatar" src={avatar} alt="profile image" />
-          <div>
-            <p className="is-family-monospace has-text-weight-bold">
-              Username: {username}
-              {achievements && (
-                <StarComponent
-                  assignStars={assignStars}
-                  achievements={achievements}
-                />
-              )}
-            </p>
-            <h5 className="title is-5 has-text-danger is-family-monospace">
-              <br />
-              Total Score/Category
-            </h5>
-            {points &&
-              points.map((point, index) => (
-                <p key={index} className="is-family-monospace">
-                  {CATEGORY_MAPPER[point[0]]}:
-                  <span className="has-text-weight-bold">{point[1]} pts</span>
-                </p>
-              ))}
-          </div>
-        </div>
-        <div className="column is-one-third">
-          <h5 className="title is-5 has-text-danger is-family-monospace">
-            Your Playtime/Category
-          </h5>
-          {plays.map((item, index) => (
-            <div key={index}>
-              <p className="is-family-monospace">
-                <span className="has-text-weight-bold">
-                  {CATEGORY_MAPPER[item[0]]}:
-                </span>
-                {item[1]} plays
+        <div className="Profile columns">
+          <div className="userinfo column is-one-third">
+            <img className="avatar" src={avatar} alt="profile image" />
+            <div>
+              <p className="is-family-monospace has-text-weight-bold">
+                Username: {username}
+                {achievements && (
+                  <StarComponent
+                    assignStars={assignStars}
+                    achievements={achievements}
+                  />
+                )}
               </p>
-              <hr />
+              <h5 className="title is-5 has-text-danger is-family-monospace">
+                <br />
+                Total Score/Category
+              </h5>
+              {points &&
+                points.map((point, index) => (
+                  <p key={index} className="is-family-monospace">
+                    {CATEGORY_MAPPER[point[0]]}:
+                    <span className="has-text-weight-bold">{point[1]} pts</span>
+                  </p>
+                ))}
             </div>
-          ))}
-          <br />
-        </div>
-        <div className="column is-one-third">
-          <h5 className="title is-5 has-text-danger is-family-monospace">
-            Your Recent quizzes:
-          </h5>
-          {recents &&
-            recents.map((recent, index) => (
+          </div>
+          <div className="column is-one-third">
+            <h5 className="title is-5 has-text-danger is-family-monospace">
+              Your Playtime/Category
+            </h5>
+            {plays.map((item, index) => (
               <div key={index}>
                 <p className="is-family-monospace">
-                  <span className="has-text-weight-bold">Category: </span>
-                  <span className="has-text-danger">
-                    {CATEGORY_MAPPER[recent.category]}
+                  <span className="has-text-weight-bold">
+                    {CATEGORY_MAPPER[item[0]]}:
                   </span>
-                </p>
-                <p className="is-family-monospace">
-                  <span className="has-text-weight-bold">Score: </span>
-                  {recent.score} pts
-                </p>
-                <p className="is-family-monospace">
-                  <span className="has-text-weight-bold">Maxium: </span>
-                  {recent.maximum} pts
+                  {item[1]} plays
                 </p>
                 <hr />
               </div>
             ))}
+            <br />
+          </div>
+          <div className="column is-one-third">
+            <h5 className="title is-5 has-text-danger is-family-monospace">
+              Your Recent quizzes:
+            </h5>
+            {recents &&
+              recents.map((recent, index) => (
+                <div key={index}>
+                  <p className="is-family-monospace">
+                    <span className="has-text-weight-bold">Category: </span>
+                    <span className="has-text-danger">
+                      {CATEGORY_MAPPER[recent.category]}
+                    </span>
+                  </p>
+                  <p className="is-family-monospace">
+                    <span className="has-text-weight-bold">Score: </span>
+                    {recent.score} pts
+                  </p>
+                  <p className="is-family-monospace">
+                    <span className="has-text-weight-bold">Maxium: </span>
+                    {recent.maximum} pts
+                  </p>
+                  <hr />
+                </div>
+              ))}
+          </div>
         </div>
       </div>
     </div>
