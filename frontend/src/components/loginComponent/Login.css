@@ -1,0 +1,44 @@
+#formnames {
+    text-align: center;
+}
+
+#username {
+    width: 40%;
+    height: 60px;
+}
+
+.labels {
+    font-size: 50px;
+    color: black;
+
+
+}
+
+.h2 {
+    font-size: 70px;
+    color: black;
+
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+
+#password {
+    width: 40%;
+    height: 60px;
+}
+
+#link {
+    color: red;
+}
+
+.login {
+    font-size: 40px;
+    color: black;
+}

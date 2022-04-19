@@ -9,7 +9,7 @@ const ErrorComponent = () => {
   <h3>There was an issue with our api request. Try again.</h3>;
 };
 
-export default function Settings({ setUser }) {
+export default function Settings() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currCategory, setCurrCategory] = useState("");
@@ -45,15 +45,6 @@ export default function Settings({ setUser }) {
     setQuestionsType(e.target.value);
   };
 
-  const handleLogout = () => {
-    fetch(`/api/logout`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          setUser(false);
-        }
-      });
-  };
   function ContinueButton() {
     return (
       <Link
@@ -75,15 +66,8 @@ export default function Settings({ setUser }) {
   if (!loading && !hasError) {
     return (
       <div>
-        <Link to="/login">
-          <div>
-            <button type="button" onClick={handleLogout}>
-              logout
-            </button>
-          </div>
-        </Link>
-        <br /> <br /> <br />
-        <h1>The Pegas Quiz</h1>
+        <br />
+        <h1 className="title">The Pegas Quiz</h1>
         <form>
           Select Category:
           <select onChange={handleCurrCategoryChange}>
@@ -128,4 +112,5 @@ export default function Settings({ setUser }) {
       </div>
     );
   }
+  return <h3>Loading that beautiful page for you or maybe not!!</h3>;
 }
