@@ -76,7 +76,6 @@ function Quiz({ location }) {
 
   useEffect(() => {
     if (location.state) {
-      console.log(numQuestions)
       fetch(
         `https://opentdb.com/api.php?amount=${numQuestions}&category=${category}&difficulty=${difficulty}&type=${questionsType}`
       )
