@@ -107,7 +107,7 @@ function Profile() {
       })
       .catch((error) => console.log(error));
   }, []);
-
+  
   useEffect(() => {
     fetch("/api/achievements")
       .then((res) => res.json())
@@ -144,6 +144,14 @@ function Profile() {
     return numStars;
   };
 
+  return (
+    <div className="container box mt-4 mb-4">
+      <br />
+      <h1 className="title is-1 is-family-monospace">Your Profile</h1>
+      <br />
+      <br />
+      <br />
+  
   return (
     <div className="container box mt-4 mb-4">
       <br />
