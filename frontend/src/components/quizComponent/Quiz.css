@@ -3,7 +3,9 @@ body {
     margin: 20px;
     margin-top: 200px;
   }
-  button{
-      margin: 10px;
-      cursor: pointer;
-  }
+
+button {
+    margin: 10px;
+    cursor: pointer;
+}
+
