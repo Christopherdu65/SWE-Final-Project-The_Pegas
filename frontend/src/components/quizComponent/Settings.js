@@ -5,7 +5,7 @@
 import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import 'bulma/css/bulma.css';
-
+import { Ring } from "react-awesome-spinners";
 const ErrorComponent = () => {
   <h3>There was an issue with our api request. Try again.</h3>;
 };
@@ -114,5 +114,12 @@ export default function Settings() {
       </div>
     );
   }
-  return <h3>Loading that beautiful page for you or maybe not!!</h3>;
+  return (
+    <div>
+      <h3>
+        Loading that beautiful page for you or maybe not!!
+      </h3>
+      <Ring />
+    </div>
+  );
 }

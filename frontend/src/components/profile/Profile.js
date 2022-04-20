@@ -13,46 +13,47 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import categoryMap from "../common/categoryMap";
 
 function StarComponent({ achievements, assignStars }) {
-  const numStars = assignStars(achievements);
-  switch (numStars) {
-    case 1:
-      return <FontAwesomeIcon icon={faStar} />;
-    case 2:
-      return (
-        <span>
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-        </span>
-      );
-    case 3:
-      return (
-        <span>
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-        </span>
-      );
-    case 4:
-      return (
-        <span>
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-        </span>
-      );
-    case 5:
-      return (
-        <span>
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-        </span>
-      );
-    default:
-      return <span />;
-  }
+    const numStars = assignStars(achievements);
+    switch (numStars) {
+        case 1:
+            return <FontAwesomeIcon icon={faStar} />;
+        case 2:
+            return (
+                <span>
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                </span>
+            );
+        case 3:
+            return (
+                <span>
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                </span>
+            );
+        case 4:
+            return (
+                <span>
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                </span>
+            );
+        case 5:
+            return (
+                <span>
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                </span>
+            );
+        default:
+            return <span />;
+    }
 }
 
 function Profile() {
