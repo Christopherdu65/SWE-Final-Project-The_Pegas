@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable react/jsx-filename-extension */
@@ -8,8 +9,8 @@ function LeaderList(props) {
 
     return (
         <div className="leaderlist">
-            {leaders.map((leader) => (
-                <div className="leaderlist-item">
+            {leaders.map((leader, index) => (
+                <div className="leaderlist-item" key={index}>
                     <img
                         className="avatar-list"
                         src={`https://avatars.dicebear.com/api/human/${leader.username}.svg`}
