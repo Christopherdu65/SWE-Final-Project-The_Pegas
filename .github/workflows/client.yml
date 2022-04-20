@@ -32,5 +32,3 @@ jobs:
         CI: false
     - run: npm test
       working-directory: frontend
-    - run: npx eslint src/
-      working-directory: frontend
