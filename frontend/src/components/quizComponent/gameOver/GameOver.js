@@ -39,7 +39,7 @@ function GameOver(props) {
                 </div>
 
                 <div className="buttons" class="tags is-centered">
-                    <Link to="/">
+                    <Link to="/settings">
                         <button className="play-again" type="button" class="button is-danger is-rounded">Play another quiz?</button>
                     </Link>
 
