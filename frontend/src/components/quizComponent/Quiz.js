@@ -135,7 +135,6 @@ function Quiz({ location }) {
         .then((data) => {
           if (!data.success)
             alert("There was an error while saving your score");
-          else console.log("Successfully saved");
         })
         .catch((err) => {
           console.log(err);
