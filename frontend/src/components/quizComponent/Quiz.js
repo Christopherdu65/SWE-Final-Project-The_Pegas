@@ -121,7 +121,6 @@ function Quiz({ location }) {
 
   useEffect(() => {
     if (currIndex === numQuestions) {
-      // if(location.state){
       const currCategory = category || 1;
       fetch(`/api/quiz`, {
         method: "POST",
@@ -133,7 +132,8 @@ function Quiz({ location }) {
           score: quizPts,
           maximum: possiblePts,
         }),
-      }).then(res => res.json())
+      })
+        .then((res) => res.json())
         .then((data) => {
           if (!data.success)
             alert("There was an error while saving your score");
@@ -169,9 +169,13 @@ function Quiz({ location }) {
           ))}
         </div>
       )}
-      {!hasError && (currIndex === numQuestions || currIndex === 10) && (
+      {!hasError && !quiz[currIndex] && (
         <div>
-          <GameOver trigger={true} quizPts={quizPts} possiblePts={possiblePts}/>
+          <GameOver
+            trigger={true}
+            quizPts={quizPts}
+            possiblePts={possiblePts}
+          />
         </div>
       )}
       {hasError && <ErrorComponent />}
