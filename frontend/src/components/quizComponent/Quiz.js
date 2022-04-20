@@ -9,7 +9,6 @@
 
 import { React, useState, useEffect } from "react";
 import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
 import "./Quiz.css";
 import GameOver from "./gameOver/GameOver";
 
@@ -151,17 +150,22 @@ function Quiz({ location }) {
         <div id="question-choices">
           <section className="hero is-danger">
             <div className="hero-body">
-              <h3 className="title" dangerouslySetInnerHTML={{ __html: quiz[currIndex].question }} />
+              <h1 className="title" dangerouslySetInnerHTML={{ __html: quiz[currIndex].question }} />
+              <h1 className="subtitle" dangerouslySetInnerHTML={{ __html: "difficulty: " + quiz[currIndex].difficulty }} />    
             </div>
           </section>
           {quiz[currIndex].choices.map((choice, index) => (
-            <button
-              className="button is-danger is-light m-6"
-              key={index}
-              type="button"
-              onClick={pickAnswer}
-              dangerouslySetInnerHTML={{ __html: choice }}
-            />
+            <div class="columns mt-6">
+              <div class="column">
+                <button
+                  className="button is-danger is-large is-light is-fullwidth"
+                  key={index}
+                  type="button"
+                  onClick={pickAnswer}
+                  dangerouslySetInnerHTML={{ __html: choice }}
+                />
+              </div>
+            </div>
           ))}
         </div>
       )}
