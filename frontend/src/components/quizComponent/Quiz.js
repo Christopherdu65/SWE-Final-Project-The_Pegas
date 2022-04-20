@@ -155,8 +155,8 @@ function Quiz({ location }) {
             </div>
           </section>
           {quiz[currIndex].choices.map((choice, index) => (
-            <div class="columns mt-6">
-              <div class="column">
+            <div className="columns mt-6">
+              <div className="column">
                 <button
                   className="button is-danger is-large is-light is-fullwidth"
                   key={index}
