@@ -29,7 +29,7 @@ function App() {
           {user ? <Settings /> : <Login setUser={setUser} />}
         </Route>
         <Route path="/leaderboard">
-          <Leaderboard />
+          <Leaderboard setUser={setUser}/>
         </Route>
         <Route path="/welcome">
           {user ? <Welcome /> : <Login setUser={setUser} />}
