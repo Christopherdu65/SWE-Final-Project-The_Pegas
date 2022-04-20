@@ -146,12 +146,13 @@ function Quiz({ location }) {
   });
 
   return (
-    <div>
+    <div className="is-center mt-6">
       {!hasError && quiz[currIndex] && (
         <div>
-          <h3 dangerouslySetInnerHTML={{ __html: quiz[currIndex].question }} />
+          <h3 className="title" dangerouslySetInnerHTML={{ __html: quiz[currIndex].question }} />
           {quiz[currIndex].choices.map((choice, index) => (
             <button
+              className="button is-danger is-light m-6"
               key={index}
               type="button"
               onClick={pickAnswer}
