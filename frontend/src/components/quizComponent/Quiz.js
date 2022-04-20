@@ -7,8 +7,8 @@
 /* eslint-disable react/jsx-filename-extension */
 import { React, useState, useEffect } from "react";
 import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
 import "./Quiz.css";
+import GameOver from "./gameOver/GameOver";
 
 function ErrorComponent() {
   return <h3>There was an issue calling the api</h3>;
@@ -159,12 +159,7 @@ function Quiz({ location }) {
       )}
       {!hasError && (currIndex === numQuestions || currIndex === 10) && (
         <div>
-          <p>
-            You scored {quizPts} out of {possiblePts} points
-          </p>
-          <Link to="/">
-            <button type="button">Play Again</button>
-          </Link>
+          <GameOver trigger quizPts={quizPts} possiblePts={possiblePts}/>
         </div>
       )}
       {hasError && <ErrorComponent />}
