@@ -48,6 +48,7 @@ function StarComponent({ achievements, assignStars }) {
                     <FontAwesomeIcon icon={faStar} />
                     <FontAwesomeIcon icon={faStar} />
                     <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
                 </span>
             );
         default:
