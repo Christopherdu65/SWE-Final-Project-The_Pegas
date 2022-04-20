@@ -5,10 +5,12 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/jsx-filename-extension */
+/* eslint-disable */
+
 import { React, useState, useEffect } from "react";
 import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
 import "./Quiz.css";
+import GameOver from "./gameOver/GameOver";
 
 function ErrorComponent() {
   return <h3>There was an issue calling the api</h3>;
@@ -119,7 +121,6 @@ function Quiz({ location }) {
 
   useEffect(() => {
     if (currIndex === numQuestions) {
-      // if(location.state){
       const currCategory = category || 1;
       fetch(`/api/quiz`, {
         method: "POST",
@@ -131,7 +132,8 @@ function Quiz({ location }) {
           score: quizPts,
           maximum: possiblePts,
         }),
-      }).then(res => res.json())
+      })
+        .then((res) => res.json())
         .then((data) => {
           if (!data.success)
             alert("There was an error while saving your score");
@@ -141,6 +143,7 @@ function Quiz({ location }) {
         });
     }
   });
+
   return (
     <div>
       {!hasError && quiz[currIndex] && (
@@ -156,14 +159,13 @@ function Quiz({ location }) {
           ))}
         </div>
       )}
-      {!hasError && (currIndex === numQuestions || currIndex === 10) && (
+      {!hasError && !quiz[currIndex] && (
         <div>
-          <p>
-            You scored {quizPts} out of {possiblePts} points
-          </p>
-          <Link to="/">
-            <button type="button">Play Again</button>
-          </Link>
+          <GameOver
+            trigger={true}
+            quizPts={quizPts}
+            possiblePts={possiblePts}
+          />
         </div>
       )}
       {hasError && <ErrorComponent />}
