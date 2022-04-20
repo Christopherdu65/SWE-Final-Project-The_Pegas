@@ -7,19 +7,20 @@ import { useState, useEffect } from "react";
 import Select from "react-select";
 import LeaderList from "./LeaderList";
 import "./Leaderboard.css";
+import categoryMap from "../common/categoryMap";
 
 function Leaderboard({ setUser }) {
   const [leaders, setLeaders] = useState([]);
   const [category, setCategory] = useState(0);
-  const [url, setUrl] = useState("/api/leaderboard");
 
   useEffect(() => {
-    fetch(url, {})
+    fetch(`/api/leaderboard?category=${category}`, {})
       .then((response) => response.json())
-      .then((response) => setLeaders(response.results))
-      .then((response) => console.log(response.results))
+      .then((response) => {
+        setLeaders(response.results);
+      })
       .catch((error) => console.log(error));
-  }, []);
+  }, [category]);
 
   useEffect(() => {
     fetch(`api/me`)
@@ -29,17 +30,12 @@ function Leaderboard({ setUser }) {
           setUser(true);
         }
       });
-  }, []);
-  const options = [
-    { value: 0, label: "Cat0" },
-    { value: 1, label: "Cat1" },
-    { value: 20, label: "Cat20" },
-  ];
+  });
 
-  function handleOnChange(value) {
-    setCategory(value.value);
-    setUrl(`/api/leaderboard?category=${category}`);
-  }
+  const options = Object.entries(categoryMap).map(([key, value]) => ({
+    value: key,
+    label: value,
+  }));
 
   return (
     <div className="board">
@@ -50,7 +46,9 @@ function Leaderboard({ setUser }) {
           className="selectcat"
           options={options}
           placeholder="Pick a category!"
-          onChange={handleOnChange}
+          onChange={(value) => {
+            setCategory(value.value);
+          }}
         />
       </center>
 
