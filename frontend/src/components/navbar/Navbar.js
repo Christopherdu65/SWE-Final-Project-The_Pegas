@@ -14,7 +14,7 @@ import { useAlert } from "react-alert";
 
 function Navbar({ user, setUsers }) {
   const alert = useAlert();
-  const handleLogout = () => {
+  const HandleLogout = () => {
     fetch(`/api/logout`)
       .then((res) => res.json())
       .then((data) => {
@@ -90,7 +90,7 @@ function Navbar({ user, setUsers }) {
             </NavLink>
           </li>
           <li className="navbar-item">
-            <NavLink id="a" className="logout" to="/" onClick={handleLogout}>
+            <NavLink id="a" className="logout" to="/" onClick={HandleLogout}>
               {" "}
               Logout
             </NavLink>
