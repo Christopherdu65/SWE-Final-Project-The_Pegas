@@ -117,10 +117,11 @@ function Quiz({ location }) {
           setHasError(true);
         });
     }
-  }, [category, difficulty, numQuestions, location.state, questionsType]);
+  }, []);
 
   useEffect(() => {
-    if (currIndex === numQuestions) {
+    if (!quiz[currIndex] && currIndex > 0) {
+      console.log("Saving...")
       const currCategory = category || 1;
       fetch(`/api/quiz`, {
         method: "POST",
@@ -142,7 +143,7 @@ function Quiz({ location }) {
           console.log(err);
         });
     }
-  });
+  }, [currIndex]);
 
   return (
     <div className="is-center mt-6">
@@ -150,8 +151,16 @@ function Quiz({ location }) {
         <div id="question-choices">
           <section className="hero is-danger">
             <div className="hero-body">
-              <h1 className="title" dangerouslySetInnerHTML={{ __html: quiz[currIndex].question }} />
-              <h1 className="subtitle" dangerouslySetInnerHTML={{ __html: "difficulty: " + quiz[currIndex].difficulty }} />    
+              <h1
+                className="title"
+                dangerouslySetInnerHTML={{ __html: quiz[currIndex].question }}
+              />
+              <h1
+                className="subtitle"
+                dangerouslySetInnerHTML={{
+                  __html: "difficulty: " + quiz[currIndex].difficulty,
+                }}
+              />
             </div>
           </section>
           {quiz[currIndex].choices.map((choice, index) => (
