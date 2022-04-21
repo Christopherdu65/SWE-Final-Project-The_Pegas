@@ -110,17 +110,6 @@ export default function Settings() {
             <option value="boolean">True/False</option>
           </select>
           <br />
-
-          <div className="field">
-            <span className="label">Select Type:</span>
-            <div className="select is-danger is-small mb-2">
-              <select value={questionsType} onChange={handleTypeChange}>
-                <option value="">Any</option>
-                <option value="multiple">Multiple Choice</option>
-                <option value="boolean">True/False</option>
-              </select>
-            </div>
-          </div>
           <br />
 
           <ContinueButton />
