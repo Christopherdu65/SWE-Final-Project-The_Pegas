@@ -2,8 +2,14 @@ body {
     text-align: center;
     margin: 20px;
     margin-top: 200px;
-  }
-  button{
+}
+
+button {
       margin: 10px;
       cursor: pointer;
-  }
+}
+
+#settings {
+    background-image: url(../../../public/image/question-marks.png);
+    background-size: contain;
+}

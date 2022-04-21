@@ -4,66 +4,52 @@
 /* eslint-disbale react/destructuring-assignment */
 /* eslint-disable */
 
-import React from "react";
+import React from 'react';
 import { Link } from "react-router-dom";
-import "./GameOver.css";
-import "bulma/css/bulma.css";
+import './GameOver.css';
+import 'bulma/css/bulma.css';
 
 function GameOver(props) {
-  const { trigger, quizPts, possiblePts } = props;
-  const ratio = quizPts / possiblePts;
-  let message = "";
+    const { trigger, quizPts, possiblePts } = props;
+    const ratio = quizPts / possiblePts;
+    let message = "";
 
-  if (ratio < 0.25) {
-    message = "Wow, not your area of expertise huh?";
-  } else if (ratio < 0.5) {
-    message = "Hmm, maybe you should try studying this one...";
-  } else if (ratio < 0.75) {
-    message = "Guess you know your stuff.";
-  } else {
-    message = "Wow, good job! You must be an expert on this!";
-  }
+    if (ratio < .25) {
+        message = "Wow, not your area of expertise huh?"
+    } else if (ratio < .5) {
+        message = "Hmm, maybe you should try studying this one..."
+    } else if (ratio < .75) {
+        message = "Guess you know your stuff."
+    } else {
+        message = "Wow, good job! You must be an expert on this!"
+    }
 
-  return trigger ? (
-    <div className="gameover">
-      <div className="popup">
-        <div className="summary">
-          <h2>{message}</h2>
-          <br />
-          <p>
-            You scored {quizPts} out of {possiblePts} points!
-          </p>
-          <br />
-          <h2 className="has-text-weight-bold has-text-danger">
-            {Math.round(ratio * 100)}%
-          </h2>
-          <br />
+    return (trigger) ? (
+        <div className="gameover">
+            <div className="popup">
+                <div className="summary">
+                    <h2>{message}</h2>
+                    <br/>
+                    <p>
+                        You scored {quizPts} out of {possiblePts} points!
+                    </p>
+                    <br/>
+                    <h2 class="has-text-weight-bold has-text-danger">{Math.round(ratio * 100)}%</h2>
+                    <br/>
+                </div>
+
+                <div className="buttons" class="tags is-centered">
+                    <Link to="/settings">
+                        <button className="play-again" type="button" class="button is-danger is-rounded">Play another quiz?</button>
+                    </Link>
+
+                    <Link to="/leaderboard">
+                        <button className="leaderboard" type="button" class="my-3 button is-danger is-rounded">See leaderboard!</button>
+                    </Link>
+                </div>
+            </div>
         </div>
+    ) : "";
+} 
 
-        <div className="buttons tags is-centered">
-          <Link to="/">
-            <button
-              className="play-again"
-              type="button button is-danger is-rounded"
-            >
-              Play another quiz?
-            </button>
-          </Link>
-
-          <Link to="/leaderboard">
-            <button
-              className="leaderboard my-3 button is-danger is-rounded"
-              type="button"
-            >
-              See leaderboard!
-            </button>
-          </Link>
-        </div>
-      </div>
-    </div>
-  ) : (
-    ""
-  );
-}
-
-export default GameOver;
+export default GameOver; 
