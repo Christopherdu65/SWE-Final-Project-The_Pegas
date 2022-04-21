@@ -5,6 +5,7 @@
 import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import 'bulma/css/bulma.css';
+import "./Quiz.css";
 
 const ErrorComponent = () => {
   <h3>There was an issue with our api request. Try again.</h3>;
@@ -75,7 +76,7 @@ export default function Settings() {
         </section>
         <br />
           
-        <form>
+        <form id="settings"> 
           <div className="field">
             <span className="label">Select Category:</span>
             <div className="select is-danger is-small mb-2" >
@@ -95,7 +96,7 @@ export default function Settings() {
           <div className="field">
             <span className="label">Enter Number of questions:</span>
               <div className="columns is-centered is-danger">
-                <div className="column is-half">
+                <div className="column is-one-fifth">
                   <input
                     className="input is-danger is-small"
                     type="number"
