@@ -9,3 +9,8 @@ button {
     cursor: pointer;
 }
 
+#settings {
+    background-image: url(../../../public/image/question-marks.png);
+    background-size: contain;
+}
+
