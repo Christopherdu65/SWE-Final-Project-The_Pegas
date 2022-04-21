@@ -145,17 +145,27 @@ function Quiz({ location }) {
   });
 
   return (
-    <div>
+    <div className="is-center mt-6">
       {!hasError && quiz[currIndex] && (
-        <div>
-          <h3 dangerouslySetInnerHTML={{ __html: quiz[currIndex].question }} />
+        <div id="question-choices">
+          <section className="hero is-danger">
+            <div className="hero-body">
+              <h1 className="title" dangerouslySetInnerHTML={{ __html: quiz[currIndex].question }} />
+              <h1 className="subtitle" dangerouslySetInnerHTML={{ __html: "difficulty: " + quiz[currIndex].difficulty }} />    
+            </div>
+          </section>
           {quiz[currIndex].choices.map((choice, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={pickAnswer}
-              dangerouslySetInnerHTML={{ __html: choice }}
-            />
+            <div className="columns mt-6">
+              <div className="column">
+                <button
+                  className="button is-danger is-large is-light is-fullwidth"
+                  key={index}
+                  type="button"
+                  onClick={pickAnswer}
+                  dangerouslySetInnerHTML={{ __html: choice }}
+                />
+              </div>
+            </div>
           ))}
         </div>
       )}
