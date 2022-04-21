@@ -5,10 +5,12 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/jsx-filename-extension */
+/* eslint-disable */
+
 import { React, useState, useEffect } from "react";
 import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
 import "./Quiz.css";
+import GameOver from "./gameOver/GameOver";
 
 function ErrorComponent() {
   return <h3>There was an issue calling the api</h3>;
@@ -115,11 +117,11 @@ function Quiz({ location }) {
           setHasError(true);
         });
     }
-  }, [category, difficulty, numQuestions, location.state, questionsType]);
+  }, []);
 
   useEffect(() => {
-    if (currIndex === numQuestions) {
-      // if(location.state){
+    if (!quiz[currIndex] && currIndex > 0) {
+      console.log("Saving...")
       const currCategory = category || 1;
       fetch(`/api/quiz`, {
         method: "POST",
@@ -131,40 +133,58 @@ function Quiz({ location }) {
           score: quizPts,
           maximum: possiblePts,
         }),
-      }).then(res => res.json())
+      })
+        .then((res) => res.json())
         .then((data) => {
           if (!data.success)
             alert("There was an error while saving your score");
-          else console.log("Successfully saved");
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  });
+  }, [currIndex]);
+
   return (
-    <div>
+    <div className="is-center mt-6">
       {!hasError && quiz[currIndex] && (
-        <div>
-          <h3 dangerouslySetInnerHTML={{ __html: quiz[currIndex].question }} />
+        <div id="question-choices">
+          <section className="hero is-danger">
+            <div className="hero-body">
+              <h1
+                className="title"
+                dangerouslySetInnerHTML={{ __html: quiz[currIndex].question }}
+              />
+              <h1
+                className="subtitle"
+                dangerouslySetInnerHTML={{
+                  __html: "difficulty: " + quiz[currIndex].difficulty,
+                }}
+              />
+            </div>
+          </section>
           {quiz[currIndex].choices.map((choice, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={pickAnswer}
-              dangerouslySetInnerHTML={{ __html: choice }}
-            />
+            <div className="columns mt-6">
+              <div className="column">
+                <button
+                  className="button is-danger is-large is-light is-fullwidth"
+                  key={index}
+                  type="button"
+                  onClick={pickAnswer}
+                  dangerouslySetInnerHTML={{ __html: choice }}
+                />
+              </div>
+            </div>
           ))}
         </div>
       )}
-      {!hasError && (currIndex === numQuestions || currIndex === 10) && (
+      {!hasError && !quiz[currIndex] && (
         <div>
-          <p>
-            You scored {quizPts} out of {possiblePts} points
-          </p>
-          <Link to="/">
-            <button type="button">Play Again</button>
-          </Link>
+          <GameOver
+            trigger={true}
+            quizPts={quizPts}
+            possiblePts={possiblePts}
+          />
         </div>
       )}
       {hasError && <ErrorComponent />}

@@ -4,6 +4,10 @@
 /* eslint-disable react/jsx-filename-extension */
 import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import 'bulma/css/bulma.css';
+import "./Quiz.css";
+import { Ring } from "react-awesome-spinners";
+
 
 const ErrorComponent = () => {
   <h3>There was an issue with our api request. Try again.</h3>;
@@ -58,7 +62,7 @@ export default function Settings() {
           },
         }}
       >
-        <button type="button">continue</button>
+        <button className="button is-danger is-large" type="button">Continue!</button>
       </Link>
     );
   }
@@ -70,7 +74,7 @@ export default function Settings() {
         <h1 className="title">The Pegas Quiz</h1>
         <form>
           Select Category:
-          <select onChange={handleCurrCategoryChange}>
+          <select className="select is-danger" onChange={handleCurrCategoryChange}>
             <option value="">All</option>
             {categories &&
               categories.map((category) => (
@@ -90,7 +94,8 @@ export default function Settings() {
           <br />
           <br />
           Select Difficulty:
-          <select value={difficulty} onChange={handleDifficultyChange}>
+
+          <select className="select is-danger" value={difficulty} onChange={handleDifficultyChange}>
             <option value="">Any</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
@@ -99,18 +104,26 @@ export default function Settings() {
           <br />
           <br />
           Select Type:
-          <select value={questionsType} onChange={handleTypeChange}>
+          <select className="select is-danger" value={questionsType} onChange={handleTypeChange}>
             <option value="">Any</option>
             <option value="multiple">Multiple Choice</option>
             <option value="boolean">True/False</option>
           </select>
           <br />
           <br />
+
           <ContinueButton />
         </form>
         {hasError && <ErrorComponent />}
       </div>
     );
   }
-  return <h3>Loading that beautiful page for you or maybe not!!</h3>;
+  return (
+    <div>
+      <h3>
+        Loading that beautiful page for you or maybe not!!
+      </h3>
+      <Ring />
+    </div>
+  );
 }

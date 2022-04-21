@@ -3,7 +3,14 @@ body {
     margin: 20px;
     margin-top: 200px;
   }
-  button{
-      margin: 10px;
-      cursor: pointer;
-  }
+
+button {
+    margin: 10px;
+    cursor: pointer;
+}
+
+#settings {
+    background-image: url(../../../public/image/question-marks.png);
+    background-size: contain;
+}
+
