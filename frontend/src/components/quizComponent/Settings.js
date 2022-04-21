@@ -71,57 +71,44 @@ export default function Settings() {
     return (
       <div>
         <br />
-        <section className="hero is-danger is-small">
-            <div className="hero-body">
-              <h1 className="title m-3">The Pegas Quiz</h1>
-            </div>
-        </section>
-        <br />
-          
-        <form id="settings"> 
-          <div className="field">
-            <span className="label">Select Category:</span>
-            <div className="select is-danger is-small mb-2" >
-              <select onChange={handleCurrCategoryChange}>
-                <option value="">All</option>
-                {categories &&
-                  categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-              </select>
-            </div>
-          </div>
-          <br/>
-
-          <div className="field">
-            <span className="label">Enter Number of questions:</span>
-              <div className="columns is-centered is-danger">
-                <div className="column is-one-fifth">
-                  <input
-                    className="input is-danger is-small"
-                    type="number"
-                    min="1"
-                    defaultValue={numQuestions}
-                    onChange={handleQuestionsChange}
-                  />
-                </div>
-              </div>
-          </div>
+        <h1 className="title">The Pegas Quiz</h1>
+        <form>
+          Select Category:
+          <select className="select is-danger" onChange={handleCurrCategoryChange}>
+            <option value="">All</option>
+            {categories &&
+              categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+          </select>
           <br />
+          <br />
+          Enter Number of questions:
+          <input
+            type="number"
+            defaultValue={numQuestions}
+            onChange={handleQuestionsChange}
+          />
+          <br />
+          <br />
+          Select Difficulty:
 
-          <div className="field">
-            <span className="label">Select Difficulty:</span>
-            <div className="select is-danger is-small mb-2" >
-              <select value={difficulty} onChange={handleDifficultyChange}>
-                <option value="">Any</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </select>
-            </div>
-          </div>
+          <select className="select is-danger" value={difficulty} onChange={handleDifficultyChange}>
+            <option value="">Any</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+          <br />
+          <br />
+          Select Type:
+          <select className="select is-danger" value={questionsType} onChange={handleTypeChange}>
+            <option value="">Any</option>
+            <option value="multiple">Multiple Choice</option>
+            <option value="boolean">True/False</option>
+          </select>
           <br />
 
           <div className="field">
