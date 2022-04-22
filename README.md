@@ -1,6 +1,6 @@
 # The Pegas' SWE Project
 
-[Heroku Link](https://swe-trivia.herokuapp.com/)
+[Heroku Link](https://swe-trivia-2.herokuapp.com/)
 
 ## Development Instructions
 
