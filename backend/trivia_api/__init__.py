@@ -10,7 +10,7 @@ login_manager = LoginManager()
 # that is not yet initialized will be used
 
 # pylint: disable=cyclic-import
-def create_app():
+def create_app(test=False):
     """
     Basic Flask application setup for movieexplorer package.
     """
@@ -33,7 +33,8 @@ def create_app():
     from . import models  # pylint: disable=import-outside-toplevel
 
     db.init_app(app)
-    db.create_all(app=app)
+    if not test:
+        db.create_all()
 
     # Setup authentication logic
     login_manager.login_view = "blueprint.login"
