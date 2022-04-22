@@ -40,7 +40,7 @@ def create_app(test=False):
 
     db.init_app(app)
     if not test:
-        db.create_all()
+        db.create_all(app=app)
 
     # Setup authentication logic
     login_manager.login_view = "blueprint.login"
