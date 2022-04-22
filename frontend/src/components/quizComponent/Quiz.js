@@ -1,15 +1,14 @@
-/* eslint-disable no-alert */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-danger */
-/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/jsx-filename-extension */
-/* eslint-disable */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 
 import { React, useState, useEffect } from "react";
 import { withRouter } from "react-router";
 import "./Quiz.css";
+import { useAlert } from "react-alert";
 import GameOver from "./gameOver/GameOver";
 
 function ErrorComponent() {
@@ -24,6 +23,7 @@ function Quiz({ location }) {
   const [quizPts, setQuizPts] = useState(0);
   const [possiblePts, setPossiblePts] = useState(0);
   const [hasError, setHasError] = useState(false);
+  const alert = useAlert();
 
   const shuffle = (arr) => {
     const shuffledArr = arr
@@ -121,7 +121,6 @@ function Quiz({ location }) {
 
   useEffect(() => {
     if (!quiz[currIndex] && currIndex > 0) {
-      console.log("Saving...")
       const currCategory = category || 1;
       fetch(`/api/quiz`, {
         method: "POST",
@@ -137,7 +136,7 @@ function Quiz({ location }) {
         .then((res) => res.json())
         .then((data) => {
           if (!data.success)
-            alert("There was an error while saving your score");
+            alert.show("There was an error while saving your score");
         })
         .catch((err) => {
           console.log(err);
@@ -158,7 +157,7 @@ function Quiz({ location }) {
               <h1
                 className="subtitle"
                 dangerouslySetInnerHTML={{
-                  __html: "difficulty: " + quiz[currIndex].difficulty,
+                  __html: `difficulty: ${  quiz[currIndex].difficulty}`,
                 }}
               />
             </div>
@@ -181,7 +180,7 @@ function Quiz({ location }) {
       {!hasError && !quiz[currIndex] && (
         <div>
           <GameOver
-            trigger={true}
+            trigger
             quizPts={quizPts}
             possiblePts={possiblePts}
           />

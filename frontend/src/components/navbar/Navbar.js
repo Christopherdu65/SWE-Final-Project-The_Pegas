@@ -1,14 +1,12 @@
+
 /* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-// import "./components/quizComponent/Settings.js";
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable jsx-a11y/anchor-has-content */
+
+
 
 import "./Navbar.css";
 import "bulma/css/bulma.css";
-import React, { useEffect } from "react";
+import { React, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useAlert } from "react-alert";
 
@@ -50,7 +48,7 @@ function Navbar({ user, setUsers }) {
               Trivia App
             </NavLink>
           </h1>
-          <a
+          <div
             id="a"
             role="button"
             className="navbar-burger"
@@ -58,10 +56,10 @@ function Navbar({ user, setUsers }) {
             aria-expanded="false"
             data-target="navbarBasicExample"
           >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+          </div>
         </div>
         <div id="navbarBasicExample" className="navbar-menu">
           <li className="navbar-item">
@@ -110,7 +108,7 @@ function Navbar({ user, setUsers }) {
             </a>{" "}
           </p>
         </h1>
-        <a
+        <div
           id="a"
           role="button"
           className="navbar-burger"
@@ -118,10 +116,10 @@ function Navbar({ user, setUsers }) {
           aria-expanded="false"
           data-target="navbarBasicExample"
         >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+        </div>
       </div>
       <div id="navbarBasicExample" className="navbar-menu">
         <li className="navbar-item">

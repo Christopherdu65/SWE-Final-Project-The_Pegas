@@ -2,10 +2,8 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/jsx-no-comment-textnodes */
-/* eslint-disable jsx-a11y/img-redundant-alt */
-/* eslint-disable react/react-in-jsx-scope */
-import { useState, useEffect } from "react";
+
+import { React, useState, useEffect } from "react";
 import "./Profile.css";
 import "bulma/css/bulma.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -120,7 +118,7 @@ function Profile() {
       <br />
       <div className="Profile columns">
         <div className="userinfo column is-one-third">
-          <img className="avatar" src={avatar} alt="profile image" />
+          <img className="avatar" src={avatar} aria-hidden alt="profile-image" />
           <div>
             <p className="is-family-monospace has-text-weight-bold">
               Username: {username}

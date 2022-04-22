@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-console */
-/* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/react-in-jsx-scope */
-import { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import Select from "react-select";
 import LeaderList from "./LeaderList";
 import "./Leaderboard.css";
