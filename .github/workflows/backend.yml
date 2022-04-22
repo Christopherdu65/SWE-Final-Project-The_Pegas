@@ -28,7 +28,6 @@ jobs:
                   pip install pylint pytest
                   if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
             - name: Format with Black
-              working-directory: backend
               uses: psf/black@stable
             - name: Lint with pylint
               working-directory: backend
