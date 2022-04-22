@@ -31,7 +31,7 @@ jobs:
               uses: psf/black@stable
             - name: Lint with pylint
               run: |
-                  pylint trivia-api
+                  pylint trivia_api
             - name: Test with pytest
               run: |
                   pytest
