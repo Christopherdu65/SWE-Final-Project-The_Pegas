@@ -59,11 +59,11 @@ def validate_json(data, required):
     """
 
     try:
-        data = json.loads(data)
-        if not all(variable in data for variable in required):
+        parsed = json.loads(data)
+        if not all(variable in parsed for variable in required):
             raise KeyError
 
-        return data
+        return parsed
     except ValueError:
         return False
     except KeyError:
