@@ -1,3 +1,9 @@
+"""
+Initialization file for the API utilized by the
+trivia app to store/fetch data from the database
+and authenticate users
+"""
+
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -12,7 +18,7 @@ login_manager = LoginManager()
 # pylint: disable=cyclic-import
 def create_app():
     """
-    Basic Flask application setup for movieexplorer package.
+    Basic Flask application setup for trivia API package.
     """
 
     # Create app and setup configuration for database access
