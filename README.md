@@ -1,6 +1,28 @@
 # The Pegas' SWE Project
 
+## The Pegas Quiz 
+We built a trivia quiz website that everyone can enjoy. We will require users to log in before they could start a quiz. Our quizzes are diverse in genre and forms, and all the questions come from the Open Trivia DB Api.  
+We use Flask in the backend with Postgresql to build our api which will be then consumed by a React frontend to provide information pertinent to the logged in user + store persistent statistics as users play. We will also make use of an external api Open Trivia DB.
+
+
 [Heroku Link](https://swe-trivia-2.herokuapp.com/)
+
+## Linting
+
+We disabled:
+
+**eslint-disable react/no-array-index-key**: we are not reordering items or delete them, as such using the index as the key is not an issue for our functionalities.
+
+**eslint-disable no-console**: for dev purpose, we actually want to console log some errors. 
+
+**eslint-disable react/prop-types**: we list props in the component definition. 
+
+**eslint-disable react/no-danger**: we are forced to disable react/no-danger in order to use dangerouslySetInnerHTML which allow us to have the questions coming from open trivia db in plain text.
+
+**eslint-disable react/jsx-filename-extension**: we disable this so that we don't have to have the .jsx extention for all our js files. 
+
+**react/jsx-props-no-spreading**: We disallow JSX props spreading because we are passing an attribute with a lot of props, so not spreading it would make it much harder to read. 
+
 
 ## Development Instructions
 
