@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from "react";
-import '@testing-library/jest-dom/extend-expect';
+import "@testing-library/jest-dom/extend-expect";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from "react-router-dom";
 import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { render, screen } from "@testing-library/react";
@@ -24,7 +24,12 @@ it("App component renders without crashing", () => {
 
 it("Settings component renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<Router><Settings /></Router>, div);
+  ReactDOM.render(
+    <Router>
+      <Settings />
+    </Router>,
+    div
+  );
   ReactDOM.render(
     <Router>
       <Settings />
@@ -36,15 +41,16 @@ it("Settings component renders without crashing", () => {
 
 it("Quiz component renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<Router><Quiz /></Router>, div);
   ReactDOM.render(
-    <Router>
-      <Quiz />
-    </Router>,
+    <AlertProvider template={AlertTemplate}>
+      <Router>
+        <Quiz />
+      </Router>
+    </AlertProvider>,
     div
   );
   ReactDOM.unmountComponentAtNode(div);
-}); 
+});
 
 test("Settings mounts with default text", () => {
   render(
@@ -54,7 +60,9 @@ test("Settings mounts with default text", () => {
       </Router>
     </AlertProvider>
   );
-  const defaultText = screen.getByText(/Loading that beautiful page for you or maybe not!!/i);
+  const defaultText = screen.getByText(
+    /Loading that beautiful page for you or maybe not!!/i
+  );
   expect(defaultText).toBeInTheDocument();
 });
 
